@@ -12,15 +12,19 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <time.h>
-#include "window.h"
+#include <string.h>
 
-extern Player *players;
-extern Card current_card;
-extern Deck *remaining_pile;
-extern Deck *discard_pile;
-extern int currentPosition;
+
+#define LINESIZE 325
+
+Player *players;
+Card current_card;
+Deck *remaining_pile;
+Deck *discard_pile;
+int currentPosition;
 int numPlayers;
 int direct = CLOCKWISE;
+
 
 char *card_name[15] = {"0","1","2","3","4","5","6","7","8","9","Skip",
                        "Reverse", "Plus","Wild"};
@@ -494,6 +498,9 @@ void processCard(){
         }
         else{
             drawCard(2);
+            if(players[currentPosition].type>=COMPUTER){
+
+            }
         }
     }
     else if (current_card.name == SKIP) {
@@ -562,6 +569,7 @@ int play_card_user(int index) {
     current = current->next;
   }
   if (is_playable(current->card) == 1) {
+      current_card = current->card;
     discard(previous,current);
     if(players[currentPosition].length>0)
         processCard();
@@ -585,9 +593,9 @@ void update_score() {
 
 void save_game() {
   char serv_name[1000];
-  snprintf(serv_name, sizeof(serv_name), "saves/uno.save");
+  snprintf(serv_name, sizeof(serv_name), "saves/uno.save", getpid());
   FILE *f = fopen(serv_name, "w");
-  if (f<0) {
+  if (f==NULL) {
     perror("Client: \n");
     exit(1);
   }
@@ -596,30 +604,25 @@ void save_game() {
     fprintf(f, "%d\t%d\t%d", players[i].length, players[i].score, players[i].type);
     Deck *current = players[i].cards;
     while (current != NULL) {
-      fprintf(f, "\t%d %d", current->card.color, current->card.name);
+      fprintf(f, "\t%d\t%d", current->card.color, current->card.name);
       current = current->next;
     }
     fprintf(f, "\n");
   }
 
   Deck *current = remaining_pile;
-  while (current != NULL) {
-    if (current->next != NULL) {
-      fprintf(f, "%d %d\t",current->card.color, current->card.name);
-    } else {
-      fprintf(f, "%d %d\n",current->card.color, current->card.name);
-    }
-    current = current->next;
-  }
+
+  fprintf(f,"\n");
   current = discard_pile;
   while (current != NULL) {
     if (current->next != NULL) {
-      fprintf(f, "%d %d\t",current->card.color, current->card.name);
+      fprintf(f, "%d\t%d\t",current->card.color, current->card.name);
     } else {
-      fprintf(f, "%d %d",current->card.color, current->card.name);
+      fprintf(f, "%d\t%d",current->card.color, current->card.name);
     }
     current = current->next;
   }
+  fprintf(f,"\n");
   free_deck(remaining_pile);
   free_deck(discard_pile);
   for (int i=0; i<numPlayers; i++) {
@@ -661,4 +664,86 @@ void calc_cards() {
     printf("%d\n", sum);
     current = current->next;
   }
+}
+
+void continue_saved_game() {
+  char input[LINESIZE];
+  FILE *f = fopen("saves/uno.save","r");
+  fgets(input, LINESIZE, f);
+  numPlayers = atoi(strtok(input, "\t"));
+  currentPosition = atoi(strtok(NULL, "\t"));
+  direct = atoi(strtok(NULL, "\t"));
+  current_card.color = atoi(strtok(NULL, "\t"));
+  current_card.name = atoi(strtok(NULL, "\t"));
+
+  players = malloc(sizeof(Player)*numPlayers);
+  for (int i=0; i<numPlayers; i++) {
+    fgets(input, LINESIZE, f);
+    players[i].length = atoi(strtok(input, "\t"));
+    players[i].score = atoi(strtok(NULL,"\t"));
+    players[i].type = atoi(strtok(NULL,"\t"));
+    if (players[i].length > 0) {
+      players[i].cards = malloc(sizeof(Deck));
+    } else {
+      players[i].cards = NULL;
+    }
+    Deck *current = players[i].cards;
+    for (int j=0; j<players[i].length; j++) {
+      current->card.color = atoi(strtok(NULL,"\t"));
+      current->card.name = atoi(strtok(NULL,"\t"));
+      if (j < players[i].length-1) {
+        current->next = malloc(sizeof(Deck));
+        current = current->next;
+      } else {
+        current->next = NULL;
+        break;
+      }
+    }
+  }
+  fgets(input, LINESIZE, f);
+  if (strcmp(input,"\n")!=0) {
+    remaining_pile = malloc(sizeof(Deck));
+    Deck *current = remaining_pile;
+    char *token = strtok(input,"\t");
+    current->card.color = atoi(token);
+    token = strtok(NULL,"\t");
+    current->card.name = atoi(token);
+    current->next = NULL;
+    token = strtok(NULL,"\t");
+    while (token != NULL) {
+      current->next = malloc(sizeof(Deck));
+      current = current->next;
+      current->card.color = atoi(token);
+      token = strtok(NULL,"\t");
+      current->card.name = atoi(token);
+      token = strtok(NULL,"\t");
+      current->next = NULL;
+    }
+  } else {
+    remaining_pile = NULL;
+  }
+
+  fgets(input,LINESIZE,f);
+  if (strcmp(input,"\n")!=0) {
+    discard_pile = malloc(sizeof(Deck));
+    Deck *current = discard_pile;
+    char *token = strtok(input,"\t");
+    current->card.color = atoi(token);
+    token = strtok(NULL,"\t");
+    current->card.name = atoi(token);
+    current->next = NULL;
+    token = strtok(NULL,"\t");
+    while (token != NULL) {
+      current->next = malloc(sizeof(Deck));
+      current = current->next;
+      current->card.color = atoi(token);
+      token = strtok(NULL,"\t");
+      current->card.name = atoi(token);
+      token = strtok(NULL,"\t");
+      current->next = NULL;
+    }
+  } else {
+    discard_pile = NULL;
+  }
+  fclose(f);
 }

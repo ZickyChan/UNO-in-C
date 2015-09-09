@@ -3,11 +3,11 @@
 #include <time.h>
 #include "function.h"
 
-Player *players;
-Card current_card;
-Deck *remaining_pile;
-Deck *discard_pile;
-int currentPosition;
+extern Player *players;
+extern Card current_card;
+extern Deck *remaining_pile;
+extern Deck *discard_pile;
+extern int currentPosition;
 extern int numPlayers;
 
 int main() {
@@ -59,4 +59,26 @@ int main() {
     }
   }
   save_game();
+  printf("save game\n");
+  continue_saved_game();
+  printf("continue\n");
+  while (players[currentPosition].length > 0) {
+    printf("Player %d's turn: len %d\n",currentPosition,players[currentPosition].length);
+    Deck *current = players[currentPosition].cards;
+    while (current!=NULL) {
+      print_card_name(current->card);
+      current = current->next;
+    }
+    int temp = currentPosition;
+    if (play_card_com()==1) {
+      printf("Player %d played: ",temp);
+      print_card_name(current_card);
+    }
+    else {
+      printf("No playable card.\n");
+    }
+    printf("Current card on the table is: ");
+    print_card_name(current_card);
+    printf("\n");
+  } 
 }
