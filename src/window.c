@@ -181,6 +181,9 @@ void printCard(){
     startX = positionX;
     startY = positionY;
 
+    current->card.color=BLACK;
+    current->card.name=WILD;
+
     int i=0;
     while(current!=NULL){
         //sprintf(buffer,"%d",current->card.name);
@@ -322,8 +325,7 @@ void comPlay(WINDOW *parent, int x){
 
 
         if (players[currentPosition].type == COMPUTER) {
-            delay(2);
-
+            delay(4);
 
             int comCanPlay = play_card_com();
             mvwprintw(game,2,gameX/2-8,"Player %d's turn!",currentPosition);
@@ -398,5 +400,20 @@ void userInput(){
 
             }
         }
+    }
+}
+
+int choose_card_color(){
+    int length = 4;
+    WINDOW *card[length];
+    for (int i=0;i<length;i++){
+        card[i] = subwin(game, 3, 5, (2 + i*4), gameX -5);
+        wbkgd(card[i],COLOR_PAIR(i+1));
+        wrefresh(card[i]);
+    }
+    wrefresh(game);
+    int c;
+    while(1){
+        c=wgetch(game);
     }
 }

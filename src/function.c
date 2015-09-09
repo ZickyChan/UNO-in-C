@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <string.h>
+#include "window.h"
 
 
 #define LINESIZE 325
@@ -24,6 +25,8 @@ Deck *discard_pile;
 int currentPosition;
 int numPlayers;
 int direct = CLOCKWISE;
+
+extern WINDOW *game;
 
 
 char *card_name[15] = {"0","1","2","3","4","5","6","7","8","9","Skip",
@@ -493,13 +496,13 @@ void processCard(){
             }
                 //for player
             else{
-              //current_card.color = choose_color();
+              current_card.color = choose_card_color();
             }
         }
         else{
             drawCard(2);
-            if(players[currentPosition].type>=COMPUTER){
-
+            if(players[currentPosition].type==PLAYER){
+                printCard();
             }
         }
     }
@@ -512,7 +515,7 @@ void processCard(){
         }
             //for player
         else{
-          //current_card.color = choose_color();
+            current_card.color = choose_card_color();
         }
     }
     next_player();
