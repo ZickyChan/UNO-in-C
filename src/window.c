@@ -211,7 +211,7 @@ void startGame(int num, int type)
 }
 void printCard(){
     Deck *current = players[0].cards;
-    int positionX = gameX/2 - 31;
+    int positionX = gameX/2 - 34;
     int positionY = gameY - 13;
     startX = positionX;
     startY = positionY;
@@ -295,13 +295,16 @@ void printCard(){
         }
         i++;
     }
-    while(i<26 && line1[i] != NULL){
+    while(i<26){
+        if(line1[i]==NULL || line2[i] == NULL){
+            break;
+        }
         if(i<13) {
             wbkgd(line1[i], COLOR_PAIR(6));
             wclear(line1[i]);
             wrefresh(line1[i]);
         }
-        else if (line2[i-13] != NULL){
+        else{
             wbkgd(line2[i - 13],COLOR_PAIR(6));
             wclear(line2[i - 13]);
             wrefresh(line2[i - 13]);
@@ -424,7 +427,7 @@ int userInput(){
                 }
                 else{
                     if ((event.y >= startY && event.y <= startY + 2)  &&
-                        (event.x >= startX && event.x <= ((startX + 4) + 6 * 8))) {
+                        (event.x >= startX && event.x <= ((startX + 4) + 6 * 12))) {
                         if ((event.x - startX + 1) % 6 != 0) {
                             int index = (event.x - startX) / 6;
                             canPlay = play_card_user(index);
@@ -438,14 +441,15 @@ int userInput(){
                                 break;
                             }
                             else {
-                                mvwprintw(game, 1, gameX / 2 - 7, "Invalid Card!");
+                                mvwprintw(game, 1, gameX / 2 - 7, "%d",index);
+                                //mvwprintw(game, 1, gameX / 2 - 7, "Invalid Card!");
                             }
                         }
                     }
                     else if ((event.y >= startY + 4 && event.y <= startY + 6) &&
                             (event.x >= startX && event.x <= (startX + 4) + 6 * (players[0].length - 1))) {
                         if ((event.x - startX + 1) % 6 != 0) {
-                            int index = (event.x - startX) / 6 + 9;
+                            int index = (event.x - startX) / 6 + 13;
                             canPlay = play_card_user(index);
                             if (canPlay == 1) {
                                 mvwprintw(game,2,gameX/2-8,"Player %d's turn!",currentPosition);
@@ -457,12 +461,13 @@ int userInput(){
                                 break;
                             }
                             else {
-                                mvwprintw(game, 1, gameX / 2 - 7, "Invalid Card!");
+                                //mvwprintw(game, 1, gameX / 2 - 7, "Invalid Card!");
+                                mvwprintw(game, 1, gameX / 2 - 7, "%d",index);
                             }
                         }
                     }
                 }
-                //if(count<1) {
+                if(count<1) {
                     if (event.y >= (gameY / 2 - 5) && event.y <= (gameY / 2 - 2) &&
                         event.x >= startX && event.x <= startX + 5) {
                         drawCard(1);
@@ -471,7 +476,7 @@ int userInput(){
                         mvwprintw(game,startY+8,startX,"Skip");
                         wrefresh(game);
                     }
-                //}
+                }
                 else if (event.y == startY+8  &&
                         event.x >= startX && event.x <= startX + 3) {
                     next_player();
