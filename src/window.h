@@ -19,7 +19,7 @@ void printCard();
 void setPlayedCard();
 void playGame(WINDOW *parent,int x);
 void comPlay(WINDOW *parent, int x);
-void userInput();
+int userInput();
 int choose_card_color();
 
 #endif //UNO_WINDOW_H

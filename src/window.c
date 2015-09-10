@@ -340,17 +340,22 @@ void comPlay(WINDOW *parent, int x){
         else{
             mvwprintw(parent,2,x/2-8,"   Your turn!   ",currentPosition);
             wrefresh(parent);
-            userInput();
+            int ifSkip = userInput();
             mvwprintw(game,3,gameX/2-8,"                 ", index);
-            mvwprintw(parent,1,gameX / 2 - 7,"             ");
+            if(ifSkip == 0) {
+                mvwprintw(parent, 1, gameX / 2 - 7, "             ");
+            }
+            else{
+                mvwprintw(game,3,gameX/2-8,"You skipped!     ");
+            }
             mvwprintw(parent,startY+8,startX,"    ");
             wrefresh(parent);
         }
     }
 }
-void userInput(){
+int userInput(){
     MEVENT event;
-    int c;
+    int c, ifSkip = 0;
     int count = 0;
     int canPlay = 0;
     while(1){
@@ -363,6 +368,46 @@ void userInput(){
                         (event.x >= startX && event.x <= (startX + 4) + 6 * (players[0].length - 1))) {
                         if ((event.x - startX + 1) % 6 != 0) {
                             int index = (event.x - startX) / 6;
+                            canPlay = play_card_user(index);
+                            if (canPlay == 1) {
+                                mvwprintw(game,2,gameX/2-8,"Player %d's turn!",currentPosition);
+                                mvwprintw(game,4,gameX/2-8,"You played:     ");
+                                printCard();
+                                setPlayedCard();
+
+                                wrefresh(game);
+                                break;
+                            }
+                            else {
+                                mvwprintw(game, 1, gameX / 2 - 7, "Invalid Card!");
+                            }
+                        }
+                    }
+                }
+                else{
+                    if ((event.y >= startY && event.y <= startY + 2)  &&
+                        (event.x >= startX && event.x <= ((startX + 4) + 6 * 8))) {
+                        if ((event.x - startX + 1) % 6 != 0) {
+                            int index = (event.x - startX) / 6;
+                            canPlay = play_card_user(index);
+                            if (canPlay == 1) {
+                                mvwprintw(game,2,gameX/2-8,"Player %d's turn!",currentPosition);
+                                mvwprintw(game,4,gameX/2-8,"You played:     ");
+                                printCard();
+                                setPlayedCard();
+
+                                wrefresh(game);
+                                break;
+                            }
+                            else {
+                                mvwprintw(game, 1, gameX / 2 - 7, "Invalid Card!");
+                            }
+                        }
+                    }
+                    else if ((event.y >= startY + 4 && event.y <= startY + 6) &&
+                            (event.x >= startX && event.x <= (startX + 4) + 6 * (players[0].length - 1))) {
+                        if ((event.x - startX + 1) % 6 != 0) {
+                            int index = (event.x - startX) / 6 + 9;
                             canPlay = play_card_user(index);
                             if (canPlay == 1) {
                                 mvwprintw(game,2,gameX/2-8,"Player %d's turn!",currentPosition);
@@ -392,12 +437,17 @@ void userInput(){
                 else if (event.y == startY+8  &&
                         event.x >= startX && event.x <= startX + 3) {
                     next_player();
+                    ifSkip = 1;
+                    mvwprintw(game,2,gameX/2-8,"Player %d's turn!",currentPosition);
+                    //mvwprintw(game,1,gameX/2-8,"You skipped!     ");
+                    wrefresh(game);
                     break;
                 }
 
             }
         }
     }
+    return ifSkip;
 }
 
 int choose_card_color(){
