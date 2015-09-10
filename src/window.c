@@ -181,9 +181,6 @@ void printCard(){
     startX = positionX;
     startY = positionY;
 
-    current->card.color=BLACK;
-    current->card.name=WILD;
-
     int i=0;
     while(current!=NULL){
         //sprintf(buffer,"%d",current->card.name);
@@ -405,15 +402,48 @@ void userInput(){
 
 int choose_card_color(){
     int length = 4;
+    int strLength = 12;
     WINDOW *card[length];
+    char sentence[] = {'C','H','O','O','S','E',' ','C','O','L','O','R'};
+    for (int i=0; i<strLength; i++){
+        mvwprintw(game,i+4,gameX - 9,"%c",sentence[i]);
+    }
     for (int i=0;i<length;i++){
-        card[i] = subwin(game, 3, 5, (2 + i*4), gameX -5);
+        card[i] = subwin(game, 3, 5, (3 + i*4), gameX -5);
         wbkgd(card[i],COLOR_PAIR(i+1));
         wrefresh(card[i]);
     }
     wrefresh(game);
-    int c;
+    int c, color;
+    MEVENT event;
     while(1){
         c=wgetch(game);
+        if (KEY_MOUSE == c) {
+            /* Mouse event. */
+            if (OK == getmouse(&event)) {
+                if(event.y>=3 && event.y <= 5 &&
+                   event.x >= gameX-5 && event.x < gameX){
+                    color = 0;
+                    break;
+                }
+                else if (event.y>=7 && event.y <= 9 &&
+                         event.x >= gameX-5 && event.x < gameX) {
+                    color = 1;
+                    break;
+                }
+                else if (event.y>=11 && event.y <= 13 &&
+                         event.x >= gameX-5 && event.x < gameX) {
+                    color = 2;
+                    break;
+                }
+                else if (event.y>=15 && event.y <= 17 &&
+                         event.x >= gameX-5 && event.x < gameX) {
+                    color = 3;
+                    break;
+                }
+            }
+        }
+
     }
+    return color;
 }
