@@ -16,8 +16,6 @@
 #include "window.h"
 
 
-#define LINESIZE 325
-
 Player *players;
 Card current_card;
 Deck *remaining_pile;
@@ -25,6 +23,9 @@ Deck *discard_pile;
 int currentPosition;
 int numPlayers;
 int direct = CLOCKWISE;
+int stacking=0;
+int is_house=0;
+
 
 extern WINDOW *game;
 
@@ -161,7 +162,7 @@ void quick_sort (Card a[], int length) {
   }
 }
 
-int create_cards(){
+int create_cards(int rule){
     Card card;
     card.color = RED;
     card.name = ZERO;
@@ -223,6 +224,9 @@ int create_cards(){
                 }
             }
         }
+    }
+    if (rule == 1) {
+      is_house = 1;
     }
     return 0;
 }
@@ -396,6 +400,10 @@ int play_card_com() {
     discard(previous,current);
     if(players[currentPosition].length>0)
       processCard();
+  } else if (!is_played && is_house && stacking != 0){
+    drawCard(stacking);
+    stacking = 0;
+    next_player();
   }
   else {
     drawCard(1);
@@ -424,14 +432,21 @@ int play_card_com() {
 }
 
 int is_playable(Card c) {
-  if (c.color == current_card.color) {
-    return 1;
-  } else if (c.name == current_card.name) {
-    return 1;
-  } else if (c.color == BLACK) {
-    return 1;
+  if (is_house && stacking != 0) {
+    if (c.name == PLUS) 
+      return 1;
+    else 
+      return 0;
   } else {
-    return 0;
+    if(c.color == current_card.color) {
+      return 1;
+    } else if (c.name == current_card.name) {
+      return 1;
+    } else if (c.color == BLACK) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
 }
 
@@ -488,9 +503,16 @@ void processCard(){
         direct = (direct+1)%2;
     }
     else if(current_card.name == PLUS){
-        next_player();
+        if (is_house) {
         if (current_card.color == BLACK) {
-            drawCard(4);
+          stacking +=4;
+        }
+        else{
+          stacking +=2;
+        }
+      } else {
+        if (current_card.color == BLACK) {
+            next_player();
             if(players[currentPosition].type>=COMPUTER){
                 current_card.color = pt_rand(2);
             }
@@ -501,10 +523,8 @@ void processCard(){
         }
         else{
             drawCard(2);
-            if(players[currentPosition].type==PLAYER){
-                printCard();
-            }
         }
+      }
     }
     else if (current_card.name == SKIP) {
         next_player();
