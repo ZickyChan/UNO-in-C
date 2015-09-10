@@ -437,10 +437,12 @@ int is_playable(Card c) {
       return 1;
     else 
       return 0;
-  } else {
+  }
+  else {
     if(c.color == current_card.color) {
       return 1;
-    } else if (c.name == current_card.name) {
+    }
+    else if (c.name == current_card.name) {
       return 1;
     } else if (c.color == BLACK) {
       return 1;
@@ -503,28 +505,38 @@ void processCard(){
         direct = (direct+1)%2;
     }
     else if(current_card.name == PLUS){
-        if (is_house) {
-        if (current_card.color == BLACK) {
-          stacking +=4;
-        }
-        else{
-          stacking +=2;
-        }
-      } else {
-        if (current_card.color == BLACK) {
-            next_player();
-            if(players[currentPosition].type>=COMPUTER){
-                current_card.color = pt_rand(2);
+        if (is_house == 1) {
+            if (current_card.color == BLACK) {
+              stacking +=4;
             }
-                //for player
             else{
-              current_card.color = choose_card_color();
+              stacking +=2;
             }
         }
-        else{
-            drawCard(2);
+        else {
+            if (current_card.color == BLACK) {
+                if (players[currentPosition].type >= COMPUTER) {
+                    current_card.color = pt_rand(2);
+                }
+                    //for player
+                else {
+                    current_card.color = choose_card_color();
+                }
+            }
+            next_player();
+            if (current_card.color == BLACK) {
+                drawCard(4);
+                if(players[currentPosition].type==PLAYER){
+                    printCard();
+                }
+            }
+            else{
+                drawCard(2);
+                if(players[currentPosition].type==PLAYER){
+                    printCard();
+                }
+            }
         }
-      }
     }
     else if (current_card.name == SKIP) {
         next_player();
@@ -535,7 +547,7 @@ void processCard(){
         }
             //for player
         else{
-            current_card.color = choose_card_color();
+           current_card.color = choose_card_color();
         }
     }
     next_player();

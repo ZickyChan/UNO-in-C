@@ -17,8 +17,8 @@ extern int currentPosition;
 extern int numPlayers;
 
 char *nameCard[15] = {"0","1","2","3","4","5","6","7","8","9","S", "R", "+","W"};
-WINDOW *line1[9];
-WINDOW *line2[9];
+WINDOW *line1[13];
+WINDOW *line2[13];
 WINDOW *playedCard;
 WINDOW *game;
 int startX;
@@ -32,7 +32,7 @@ void setMenuScreen(WINDOW *menu, int maxy, int maxx){
     mvwprintw(menu,maxy/2+3,maxx/2-2,"Quit");
 }
 
-int new_game(WINDOW *question) {
+int askNumberPLayer(WINDOW *question) {
     MEVENT event;
     int x, y;
     getmaxyx(question, y, x);
@@ -94,6 +94,40 @@ int new_game(WINDOW *question) {
     }
     return returnNum;
 }
+int typeGame(){
+    MEVENT event;
+    wclear(game);
+    wrefresh(game);
+    mvwprintw(game, gameY/2 - 5,gameX/2 - 12 , "Choose your variation: ");
+    mvwprintw(game, gameY/2 - 3, gameX/2 - 5, "Standard");
+    mvwprintw(game, gameY/2 - 1, gameX/2 - 7, "Stacking UNO");
+    mvwprintw(game, gameY-5,gameX-4, "Back");
+    int c;
+    int returnNum = -1;
+    while (1) {
+        c = wgetch(game);
+        if (KEY_MOUSE == c) {
+            if (OK == getmouse(&event)) {
+                if ((event.y == gameY-5) && (event.x >= gameX - 4 && event.x < gameX )) {
+                    delwin(game);
+                    returnNum = -1;
+                    break;
+                } else if ((event.y == gameY / 2 - 3) &&
+                        (event.x >= gameX / 2 - 5) && (event.x < gameX/2 + 3)) {
+                    returnNum = 0;
+                    break;
+                }
+                else if ((event.y == gameY / 2 - 1) &&
+                         (event.x >= gameX / 2 - 7) && (event.x < gameX/2 + 5)) {
+                    returnNum = 1;
+                    break;
+                }
+            }
+
+        }
+    }
+    return returnNum;
+}
 void gameScreen(int y, int x){
     game = newwin(y,x,0,0);
     wbkgd(game,COLOR_PAIR(6));
@@ -101,17 +135,17 @@ void gameScreen(int y, int x){
     gameX = x;
     gameY = y;
 
-    int numPlay = new_game(game);
-    if(numPlay != -1){
-        //char buffer[1];
-        //sprintf(buffer,"%d",numPlay);
+    int numPlay = askNumberPLayer(game);
+    int typePlay = typeGame();
+
+    if(numPlay != -1 && typePlay != -1){
         wclear(game);
         wrefresh(game);
         playedCard = subwin(game,3,5,y/2-5,x/2-2);
 
         mvwprintw(game, y-5,x-4, "Back");
 
-        startGame(numPlay);
+        startGame(numPlay, typePlay);
         printCard();
 
         WINDOW* drawCard  = subwin(game,3,5,y/2-5,startX);
@@ -122,13 +156,7 @@ void gameScreen(int y, int x){
         playGame(game,x);
         wrefresh(game);
 
-
-        /*int c;
-        while(1){
-            c=wgetch(game);
-        }*/
-
-
+        while(1){}
     }
 }
 void creditScreen(int y, int x) {
@@ -154,17 +182,24 @@ void creditScreen(int y, int x) {
     }
 }
 
-void startGame(int num)
+void startGame(int num, int type)
 {
     //time_t current_time = time(NULL);
     //srand(current_time);
 
-    int canRun = create_cards();
+    int canRun = create_cards(type);
     if (canRun == 0){
         canRun = shuffle(108);
         if(canRun == 0){
             Deck *current = remaining_pile;
             canRun = create_players(num);
+            if(canRun == 0){
+
+            }
+            else{
+                mvwprintw(game, gameY/2,gameX/2 - 8, "Sorry you can't start game!");
+                wrefresh(game);
+            }
         }
         else
         {
@@ -176,15 +211,14 @@ void startGame(int num)
 }
 void printCard(){
     Deck *current = players[0].cards;
-    int positionX = gameX/2 - 23;
+    int positionX = gameX/2 - 31;
     int positionY = gameY - 13;
     startX = positionX;
     startY = positionY;
 
     int i=0;
     while(current!=NULL){
-        //sprintf(buffer,"%d",current->card.name);
-        if(i<9) {
+        if(i<13) {
             line1[i] = subwin(game, 3, 5, positionY, positionX);
             wclear(line1[i]);
             wrefresh(line1[i]);
@@ -215,46 +249,45 @@ void printCard(){
                 mvwprintw(line1[i], 1, 2, "%s", nameCard[current->card.name]);
             }
             wrefresh(line1[i]);
-
             positionX += 6;
             current = current->next;
-            if(i==8){
+            if(i==12){
                 positionX = startX;
                 positionY += 4;
             }
         }
         else
         {
-            line2[i-9] = subwin(game, 3, 5, positionY, positionX);
-            wclear(line2[i-9]);
-            wrefresh(line2[i-9]);
-            wbkgd(line2[i-9], COLOR_PAIR((current->card.color) + 1));
+            line2[i-13] = subwin(game, 3, 5, positionY, positionX);
+            wclear(line2[i-13]);
+            wrefresh(line2[i-13]);
+            wbkgd(line2[i-13], COLOR_PAIR((current->card.color) + 1));
             if (current->card.name < PLUS) {
-                mvwprintw(line2[i-9], 1, 2, "%s", nameCard[current->card.name]);
+                mvwprintw(line2[i-13], 1, 2, "%s", nameCard[current->card.name]);
             }
             else if (current->card.name == PLUS) {
                 if (current->card.color == BLACK) {
-                    mvwprintw(line2[i-9], 1, 1, "%s", nameCard[current->card.name]);
-                    mvwprintw(line2[i-9], 1, 3, "4");
+                    mvwprintw(line2[i-13], 1, 1, "%s", nameCard[current->card.name]);
+                    mvwprintw(line2[i-13], 1, 3, "4");
                 }
                 else {
-                    mvwprintw(line2[i-9], 1, 1, "%s", nameCard[current->card.name]);
-                    mvwprintw(line2[i-9], 1, 3, "2");
+                    mvwprintw(line2[i-13], 1, 1, "%s", nameCard[current->card.name]);
+                    mvwprintw(line2[i-13], 1, 3, "2");
                 }
             }
             else {
-                wattrset(line2[i-9], COLOR_PAIR(1));
-                mvwprintw(line2[i-9], 0, 0, "  ");
-                wattrset(line2[i-9], COLOR_PAIR(2));
-                mvwprintw(line2[i-9], 0, 3, "  ");
-                wattrset(line2[i-9], COLOR_PAIR(3));
-                mvwprintw(line2[i-9], 2, 0, "  ");
-                wattrset(line2[i-9], COLOR_PAIR(4));
-                mvwprintw(line2[i-9], 2, 3, "  ");
-                wattrset(line2[i-9], COLOR_PAIR(5));
-                mvwprintw(line2[i-9], 1, 2, "%s", nameCard[current->card.name]);
+                wattrset(line2[i-13], COLOR_PAIR(1));
+                mvwprintw(line2[i-13], 0, 0, "  ");
+                wattrset(line2[i-13], COLOR_PAIR(2));
+                mvwprintw(line2[i-13], 0, 3, "  ");
+                wattrset(line2[i-13], COLOR_PAIR(3));
+                mvwprintw(line2[i-13], 2, 0, "  ");
+                wattrset(line2[i-13], COLOR_PAIR(4));
+                mvwprintw(line2[i-13], 2, 3, "  ");
+                wattrset(line2[i-13], COLOR_PAIR(5));
+                mvwprintw(line2[i-13], 1, 2, "%s", nameCard[current->card.name]);
             }
-            wrefresh(line2[i-9]);
+            wrefresh(line2[i-13]);
 
             positionX += 6;
             current = current->next;
@@ -262,14 +295,19 @@ void printCard(){
         }
         i++;
     }
-    while(i<9){
-        wbkgd(line1[i],COLOR_PAIR(6));
-        wclear(line1[i]);
-        wrefresh(line1[i]);
+    while(i<26 && line1[i] != NULL){
+        if(i<13) {
+            wbkgd(line1[i], COLOR_PAIR(6));
+            wclear(line1[i]);
+            wrefresh(line1[i]);
+        }
+        else if (line2[i-13] != NULL){
+            wbkgd(line2[i - 13],COLOR_PAIR(6));
+            wclear(line2[i - 13]);
+            wrefresh(line2[i - 13]);
+        }
         i++;
     }
-
-    free(current);
 }
 
 void setPlayedCard(){
@@ -320,7 +358,7 @@ void comPlay(WINDOW *parent, int x){
     while (players[currentPosition].length > 0) {
         int index = currentPosition;
 
-
+        mvwprintw(parent, 1, gameX / 2 - 7, "             ");
         if (players[currentPosition].type == COMPUTER) {
             delay(4);
 
@@ -343,7 +381,7 @@ void comPlay(WINDOW *parent, int x){
             int ifSkip = userInput();
             mvwprintw(game,3,gameX/2-8,"                 ", index);
             if(ifSkip == 0) {
-                mvwprintw(parent, 1, gameX / 2 - 7, "             ");
+                mvwprintw(parent, 3, gameX / 2 - 8, "                 ");
             }
             else{
                 mvwprintw(game,3,gameX/2-8,"You skipped!     ");
@@ -424,7 +462,7 @@ int userInput(){
                         }
                     }
                 }
-                if(count<1) {
+                //if(count<1) {
                     if (event.y >= (gameY / 2 - 5) && event.y <= (gameY / 2 - 2) &&
                         event.x >= startX && event.x <= startX + 5) {
                         drawCard(1);
@@ -433,13 +471,13 @@ int userInput(){
                         mvwprintw(game,startY+8,startX,"Skip");
                         wrefresh(game);
                     }
-                }
+                //}
                 else if (event.y == startY+8  &&
                         event.x >= startX && event.x <= startX + 3) {
                     next_player();
                     ifSkip = 1;
                     mvwprintw(game,2,gameX/2-8,"Player %d's turn!",currentPosition);
-                    //mvwprintw(game,1,gameX/2-8,"You skipped!     ");
+                    mvwprintw(game, 1, gameX / 2 - 7, "             ");
                     wrefresh(game);
                     break;
                 }

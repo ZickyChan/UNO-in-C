@@ -38,7 +38,7 @@ int main()
     int c;
     init_screen();
     curs_set(0); /* Invisible cursor */
-    //halfdelay(1); /* Don't wait for more than 1/10 seconds for a keypress */
+
     //keypad(stdscr, TRUE); /* Enable keypad mode */
     mousemask(ALL_MOUSE_EVENTS, NULL); /* Report all mouse events */
 
@@ -75,20 +75,11 @@ int main()
 
                 }
                 else if(event.y == maxy/2+3 && (event.x >= maxx/2-2 && event.x <= maxx/2+2)){
-                    //delwin(menu);
                     endwin();
                     return 0;
                 }
             }
-            else{}
-                //mvwprintw(menu,1,2,"Bad mouse event.");
         }
-            //sprintf(buffer, "Key '%s' (0x%04x = %d) pressed.", keyname(c), c, c);
-       /* wmove(menu,0,0);
-        //insertln();
-        //addstr(buffer);
-        wclrtoeol(menu);
-        wmove(menu,0, 0);*/
     }
 }
 

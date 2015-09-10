@@ -16,7 +16,7 @@ int main() {
   time_t current_time = time(NULL);
   srand(current_time);*/
 
-  create_cards();
+  create_cards(0);
   shuffle(108);
   create_players(4);
   /*current = head;

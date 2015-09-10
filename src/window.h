@@ -13,8 +13,10 @@
 
 void gameScreen(int y, int x);
 void creditScreen(int y, int x);
+int askNumberPLayer(WINDOW *question);
+int typeGame();
 void setMenuScreen(WINDOW *menu, int maxy, int maxx);
-void startGame(int num);
+void startGame(int num, int type);
 void printCard();
 void setPlayedCard();
 void playGame(WINDOW *parent,int x);
