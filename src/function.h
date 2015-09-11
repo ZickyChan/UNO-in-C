@@ -57,4 +57,5 @@ void save_game();
 void delay(unsigned int secs);
 void calc_cards();
 void continue_saved_game();
+int play_another_game();
 #endif //UNO_FUNCTION_H

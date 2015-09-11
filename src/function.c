@@ -29,7 +29,7 @@ int is_time_bomb = 0;
 int turns_left = -1;
 
 extern int haveToDraw;
-
+extern int winning_score;
 extern WINDOW *game;
 extern int gameX;
 extern int gameY;
@@ -418,8 +418,7 @@ int play_card_com() {
     stacking = 0;
     turns_left--;
     next_player();
-  }
-  else {
+  } else {
     drawCard(1);
     previous = NULL;
     current = players[currentPosition].cards;
@@ -460,8 +459,17 @@ int is_playable(Card c) {
       return 1;
     } else
       return 0;
-  }
-  else {
+  } else if (is_time_bomb && players[currentPosition].length == 1) {
+    if (c.color == current_card.color)
+      return 1;
+    else if (c.color == BLACK)
+      return 0;
+    else if (c.name == current_card.name)
+      return 1;
+    else 
+      return 0;
+    }
+  } else {
     if(c.color == current_card.color) {
       return 1;
     }
@@ -677,7 +685,13 @@ void save_game() {
     perror("Client: \n");
     exit(1);
   }
-  fprintf(f, "%d\t%d\t%d\t%d\t%d\n", numPlayers, currentPosition, direct, current_card.color, current_card.name);
+  if (is_stacking)
+    fprintf(f, "1\t%d\n", stacking);
+  else if (is_time_bomb)
+    fprintf(f, "2\t%d\t%d\n", stacking, turns_left);
+  else 
+    fprintf(f, "0\n");
+  fprintf(f, "%d\t%d\t%d\t%d\t%d\t%d\n", numPlayers, currentPosition, direct, current_card.color, current_card.name, winning_score);
   for (int i=0; i<numPlayers; i++) {
     fprintf(f, "%d\t%d\t%d", players[i].length, players[i].score, players[i].type);
     Deck *current = players[i].cards;
@@ -748,11 +762,22 @@ void continue_saved_game() {
   char input[LINESIZE];
   FILE *f = fopen("saves/uno.save","r");
   fgets(input, LINESIZE, f);
+  int rule = atoi(strtok(input, "\t"));
+  if (rule == 1) {
+    is_stacking = 1;
+    stacking = atoi(strtok(NULL, "\t")); 
+  } else if (rule == 2) {
+    is_time_bomb = 1;
+    stacking = atoi(strtok(NULL, "\t"));
+    turns_left = atoi(strtok(NULL, "\t"));
+  }
+  fgets(input, LINESIZE, f);
   numPlayers = atoi(strtok(input, "\t"));
   currentPosition = atoi(strtok(NULL, "\t"));
   direct = atoi(strtok(NULL, "\t"));
   current_card.color = atoi(strtok(NULL, "\t"));
   current_card.name = atoi(strtok(NULL, "\t"));
+  winning_score = atoi(strtok(NULL, "\t"));
 
   players = malloc(sizeof(Player)*numPlayers);
   for (int i=0; i<numPlayers; i++) {
@@ -824,4 +849,22 @@ void continue_saved_game() {
     discard_pile = NULL;
   }
   fclose(f);
+}
+
+int play_another_game() {
+  Deck *current = remaining_pile;
+  while (current->next != NULL) {
+    current = current->next;
+  }
+  for (int i=0; i<numPlayers; i++) {
+    players[i].length = 0;
+    if (players[i].cards != NULL) {
+      current->next = players[i].cards;
+      players[i].cards = NULL;
+      while (current->next != NULL) 
+        current = current->next;
+    }
+  }
+  current->next = discard_pile;
+  return set_up();
 }
