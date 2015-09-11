@@ -15,6 +15,7 @@ extern Deck *remaining_pile;
 extern Deck *discard_pile;
 extern int currentPosition;
 extern int numPlayers;
+extern int is_stacking;
 
 char *nameCard[15] = {"0","1","2","3","4","5","6","7","8","9","S", "R", "+","W"};
 WINDOW *line1[13];
@@ -24,10 +25,16 @@ WINDOW *game;
 int startX;
 int startY;
 int gameX, gameY;
+int haveToDraw = 0;
+int canPlay = 0;
+int winning_score;
+
+
 
 void setMenuScreen(WINDOW *menu, int maxy, int maxx){
-    mvwprintw(menu,maxy/2-3,maxx/2-2,"Menu");
-    mvwprintw(menu,maxy/2-1,maxx/2-4,"New Game");
+    //mvwprintw(menu,maxy/2-3,maxx/2-2,"Menu");
+    mvwprintw(menu,maxy/2-3,maxx/2-4,"New Game");
+    mvwprintw(menu,maxy/2-1,maxx/2-4,"Continue");
     mvwprintw(menu,maxy/2+1,maxx/2-3,"Credit");
     mvwprintw(menu,maxy/2+3,maxx/2-2,"Quit");
 }
@@ -128,7 +135,51 @@ int typeGame(){
     }
     return returnNum;
 }
-void gameScreen(int y, int x){
+int winScore(){
+    MEVENT event;
+    wclear(game);
+    wrefresh(game);
+    mvwprintw(game, gameY/2 - 3,gameX/2 - 12 , "Choose your winning score: ");
+    mvwprintw(game, gameY/2 , gameX/2 - 12, "300     500     750    1000");
+    mvwprintw(game, gameY-5,gameX-4, "Back");
+    int c;
+    int returnNum = 0;
+    while (1) {
+        c = wgetch(game);
+        if (KEY_MOUSE == c) {
+            if (OK == getmouse(&event)) {
+                if ((event.y == gameY - 5) && (event.x >= gameX - 4 && event.x < gameX)) {
+                    delwin(game);
+                    returnNum = -1;
+                    break;
+                }
+                else if ((event.y == gameY / 2 ) &&
+                         (event.x >= gameX / 2 - 12) && (event.x <= gameX / 2 - 10)) {
+                    winning_score = 300;
+                    break;
+                }
+                else if ((event.y == gameY / 2 ) &&
+                         (event.x >= gameX / 2 - 4) && (event.x <= gameX / 2 - 2)) {
+                    winning_score = 500;
+                    break;
+                }
+                else if ((event.y == gameY / 2 ) &&
+                         (event.x >= gameX / 2 + 4) && (event.x <= gameX / 2 + 6)) {
+                    winning_score = 750;
+                    break;
+                }
+                else if ((event.y == gameY / 2 ) &&
+                         (event.x >= gameX / 2 + 11) && (event.x <= gameX / 2 + 14)) {
+                    winning_score = 1000;
+                    break;
+                }
+
+            }
+        }
+    }
+    return returnNum;
+}
+void gameScreen(int y, int x, int ifContinue){
     game = newwin(y,x,0,0);
     wbkgd(game,COLOR_PAIR(6));
     keypad(game, TRUE);
@@ -137,15 +188,23 @@ void gameScreen(int y, int x){
 
     int numPlay = askNumberPLayer(game);
     int typePlay = typeGame();
+    int set_win_score = winScore();
 
-    if(numPlay != -1 && typePlay != -1){
+    if(numPlay != -1 && typePlay != -1 && set_win_score != -1){
         wclear(game);
         wrefresh(game);
         playedCard = subwin(game,3,5,y/2-5,x/2-2);
 
         mvwprintw(game, y-5,x-4, "Back");
-
-        startGame(numPlay, typePlay);
+        if(typePlay == 0) {
+            mvwprintw(game, 0, 0, "Standard Mode");
+        }
+        else{
+            mvwprintw(game, 0, 0, "Stacking UNO Mode");
+        }
+        if(ifContinue==0) {
+            startGame(numPlay, typePlay);
+        }
         printCard();
 
         WINDOW* drawCard  = subwin(game,3,5,y/2-5,startX);
@@ -156,7 +215,11 @@ void gameScreen(int y, int x){
         playGame(game,x);
         wrefresh(game);
 
-        while(1){}
+        wclear(drawCard);
+        delwin(drawCard);
+        wclear(game);
+        delwin(game);
+
     }
 }
 void creditScreen(int y, int x) {
@@ -191,7 +254,6 @@ void startGame(int num, int type)
     if (canRun == 0){
         canRun = shuffle(108);
         if(canRun == 0){
-            Deck *current = remaining_pile;
             canRun = create_players(num);
             if(canRun == 0){
 
@@ -296,15 +358,15 @@ void printCard(){
         i++;
     }
     while(i<26){
-        if(line1[i]==NULL || line2[i] == NULL){
-            break;
-        }
         if(i<13) {
+            if(line1[i] == NULL){
+                break;
+            }
             wbkgd(line1[i], COLOR_PAIR(6));
             wclear(line1[i]);
             wrefresh(line1[i]);
         }
-        else{
+        else if (line2[i-13] != NULL){
             wbkgd(line2[i - 13],COLOR_PAIR(6));
             wclear(line2[i - 13]);
             wrefresh(line2[i - 13]);
@@ -352,17 +414,22 @@ void playGame(WINDOW *parent,int x) {
 
     mvwprintw(game,2,gameX/2-8,"Player %d's turn!",currentPosition);
     setPlayedCard();
+
+    for(int i=1;i<numPlayers;i++){
+        mvwprintw(game,5+(i-1),1,"Player %d: %d cards", i,players[i].length);
+    }
+
     wrefresh(parent);
 
     comPlay(parent,x);
 }
-void comPlay(WINDOW *parent, int x){
+void comPlay (WINDOW *parent, int x){
 
     while (players[currentPosition].length > 0) {
         int index = currentPosition;
 
         mvwprintw(parent, 1, gameX / 2 - 7, "             ");
-        if (players[currentPosition].type == COMPUTER) {
+        if (players[currentPosition].type >= COMPUTER) {
             delay(4);
 
             int comCanPlay = play_card_com();
@@ -374,20 +441,29 @@ void comPlay(WINDOW *parent, int x){
             else {
                 mvwprintw(game,3,gameX/2-8,"                 ", index);
                 mvwprintw(game,4,gameX/2-8,"Player %d played:",index);
+                mvwprintw(game,5+(index-1),1,"Player %d: %d cards", index, players[index].length);
+                canPlay = 0;
             }
             setPlayedCard();
             wrefresh(parent);
         }
         else{
+            if(current_card.name==PLUS && is_stacking == 1 && canPlay == 0) {
+                mvwprintw(game, startY + 8, startX, "Skip");
+                wrefresh(game);
+            }
             mvwprintw(parent,2,x/2-8,"   Your turn!   ",currentPosition);
             wrefresh(parent);
-            int ifSkip = userInput();
-            mvwprintw(game,3,gameX/2-8,"                 ", index);
-            if(ifSkip == 0) {
+            int mode = userInput();
+            mvwprintw(game,1,gameX/2-7,"                 ", index);
+            if(mode == 0) {
                 mvwprintw(parent, 3, gameX / 2 - 8, "                 ");
             }
-            else{
+            else if(mode == 1){
                 mvwprintw(game,3,gameX/2-8,"You skipped!     ");
+            }
+            else{
+                break;
             }
             mvwprintw(parent,startY+8,startX,"    ");
             wrefresh(parent);
@@ -396,9 +472,9 @@ void comPlay(WINDOW *parent, int x){
 }
 int userInput(){
     MEVENT event;
-    int c, ifSkip = 0;
+    int c;
+    int returnMode = 0;
     int count = 0;
-    int canPlay = 0;
     while(1){
         c=wgetch(game);
         if (KEY_MOUSE == c) {
@@ -415,7 +491,6 @@ int userInput(){
                                 mvwprintw(game,4,gameX/2-8,"You played:     ");
                                 printCard();
                                 setPlayedCard();
-
                                 wrefresh(game);
                                 break;
                             }
@@ -441,8 +516,7 @@ int userInput(){
                                 break;
                             }
                             else {
-                                mvwprintw(game, 1, gameX / 2 - 7, "%d",index);
-                                //mvwprintw(game, 1, gameX / 2 - 7, "Invalid Card!");
+                                mvwprintw(game, 1, gameX / 2 - 7, "Invalid Card!");
                             }
                         }
                     }
@@ -461,36 +535,51 @@ int userInput(){
                                 break;
                             }
                             else {
-                                //mvwprintw(game, 1, gameX / 2 - 7, "Invalid Card!");
-                                mvwprintw(game, 1, gameX / 2 - 7, "%d",index);
+                                mvwprintw(game, 1, gameX / 2 - 7, "Invalid Card!");
                             }
                         }
                     }
                 }
-                if(count<1) {
-                    if (event.y >= (gameY / 2 - 5) && event.y <= (gameY / 2 - 2) &&
-                        event.x >= startX && event.x <= startX + 5) {
-                        drawCard(1);
-                        printCard();
-                        count++;
-                        mvwprintw(game,startY+8,startX,"Skip");
+                if(current_card.name==PLUS && is_stacking == 1 && canPlay == 0){
+                   if(event.y == startY+8  && event.x >= startX && event.x <= startX + 3) {
+                       haveToDraw = 1;
+                       play_card_user(0);
+                       mvwprintw(game, startY + 8, startX, "    ");
+                       mvwprintw(game, 2, gameX / 2 - 8, "Player %d's turn!", currentPosition);
+                       break;
+                   }
+                }
+                else {
+                    if (count < 1) {
+                        if (event.y >= (gameY / 2 - 5) && event.y <= (gameY / 2 - 2) &&
+                                                          event.x >= startX && event.x <= startX + 5) {
+                            drawCard(1);
+                            printCard();
+                            count++;
+                            mvwprintw(game, startY + 8, startX, "Skip");
+                            wrefresh(game);
+                        }
+                    }
+                    else if (event.y == startY + 8 &&
+                             event.x >= startX && event.x <= startX + 3) {
+                        next_player();
+                        returnMode = 1;
+                        mvwprintw(game, 2, gameX / 2 - 8, "Player %d's turn!", currentPosition);
+                        mvwprintw(game, 1, gameX / 2 - 7, "             ");
                         wrefresh(game);
+                        break;
                     }
                 }
-                else if (event.y == startY+8  &&
-                        event.x >= startX && event.x <= startX + 3) {
-                    next_player();
-                    ifSkip = 1;
-                    mvwprintw(game,2,gameX/2-8,"Player %d's turn!",currentPosition);
-                    mvwprintw(game, 1, gameX / 2 - 7, "             ");
-                    wrefresh(game);
+                if(event.y == (gameY-5) && event.x >=gameX-4 && event.x <= gameX){
+                    saveScreen();
+                    returnMode = 2;
                     break;
                 }
 
             }
         }
     }
-    return ifSkip;
+    return returnMode;
 }
 
 int choose_card_color(){
@@ -538,5 +627,53 @@ int choose_card_color(){
         }
 
     }
+    for (int i=0;i<length;i++){
+        wbkgd(card[i],COLOR_PAIR(6));
+        wclear(card[i]);
+        wrefresh(card[i]);
+        delwin(card[i]);
+    }
+    for (int i=0; i<strLength; i++){
+        mvwprintw(game,i+4,gameX - 9," ");
+    }
     return color;
+}
+
+void saveScreen(){
+    wclear(game);
+    wrefresh(game);
+    mvwprintw(game,gameY/2 - 5, gameX/2 - 13 , "Do you want to save game?");
+    mvwprintw(game,gameY/2 - 3, gameX/2 - 13 , "    Yes             No   ");
+    MEVENT event;
+    int c;
+    while(1) {
+        c = wgetch(game);
+        if (KEY_MOUSE == c) {
+            /* Mouse event. */
+            if (OK == getmouse(&event)) {
+                if (event.y == (gameY / 2 - 3) &&
+                    event.x >= gameX/2 -9 && event.x < gameX/2-6) {
+                    save_game();
+                    break;
+                }
+                else if(event.y == (gameY / 2 - 3) &&
+                        event.x >= gameX/2 + 7 && event.x < gameX/2+9) {
+                    break;
+                }
+            }
+        }
+    }
+    int length = 13;
+    for(int i=0; i<length;i++){
+        if (line1[i]!=NULL){
+            wclear(line1[i]);
+            delwin(line1[i]);
+        }
+        if (line2[i]!=NULL){
+            wclear(line2[i]);
+            delwin(line2[i]);
+        }
+    }
+    wclear(playedCard);
+    delwin(playedCard);
 }

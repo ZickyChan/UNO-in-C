@@ -24,15 +24,12 @@ int currentPosition;
 int numPlayers;
 int direct = CLOCKWISE;
 int stacking=0;
-int is_stacking=0;
-int is_time_bomb = 0;
-int turns_left = -1;
+int is_house=0;
 
 extern int haveToDraw;
 
+
 extern WINDOW *game;
-extern int gameX;
-extern int gameY;
 
 
 char *card_name[15] = {"0","1","2","3","4","5","6","7","8","9","Skip",
@@ -231,9 +228,7 @@ int create_cards(int rule){
         }
     }
     if (rule == 1) {
-      is_stacking = 1;
-    } else if (rule == 2) {
-      is_time_bomb = 1;
+      is_house = 1;
     }
     return 0;
 }
@@ -248,7 +243,7 @@ int create_players(int num){
   for (int i = 0; i < numPlayers; i++) {
         players[i].length = 0;
         players[i].score = 0;
-        players[i].type= (i==0) ? PLAYER:(i%3+1);
+        players[i].type= (i==0) ? PLAYER:COMPUTER;
         players[i].cards = NULL;
     }
   return set_up();
@@ -407,16 +402,9 @@ int play_card_com() {
     discard(previous,current);
     if(players[currentPosition].length>0)
       processCard();
-  }
-  else if (!is_played && is_stacking && stacking != 0){
+  } else if (!is_played && is_house && stacking != 0){
     drawCard(stacking);
     stacking = 0;
-    next_player();
-  }
-  else if (!is_played && is_time_bomb && turns_left == 0) {
-    drawCard(stacking);
-    stacking = 0;
-    turns_left--;
     next_player();
   }
   else {
@@ -434,8 +422,6 @@ int play_card_com() {
       }
     }
     if(is_played == 0){
-      if (is_time_bomb && turns_left!=-1)
-        turns_left--;
       next_player();
     }
     else{
@@ -448,17 +434,10 @@ int play_card_com() {
 }
 
 int is_playable(Card c) {
-  if (is_stacking && stacking != 0) {
+  if (is_house && stacking != 0) {
     if (c.name == PLUS) 
       return 1;
     else 
-      return 0;
-  }
-  else if (is_time_bomb && turns_left == 0) {
-    if (c.name == REVERSE || c.name == SKIP) {
-      turns_left++;
-      return 1;
-    } else
       return 0;
   }
   else {
@@ -477,15 +456,8 @@ int is_playable(Card c) {
 
 void discard(Deck *previous, Deck *current){
     players[currentPosition].length--;
-    if (players[currentPosition].length == 1) {
-        //printf("UNO\n");
-        if(currentPosition != 0) {
-            mvwprintw(game, 5, gameX / 2 - 11, "Player %d says: UNO!!!", currentPosition);
-        }
-        else{
-            mvwprintw(game, 5, gameX / 2 - 11, "   You say: UNO!!!   ", currentPosition);
-        }
-    }
+    if (players[currentPosition].length == 1)
+        printf("UNO\n");
     else if (players[currentPosition].length == 0)
         printf("Player %d wins!\n", currentPosition);
     if (previous == NULL) {
@@ -516,7 +488,7 @@ void drawCard(int numDraw){
                 pile_len++;
                 current = current->next;
             }
-            shuffle(pile_len);
+            //shuffle(pile_len);
         }
         Deck *current = malloc(sizeof(Deck));
         current->card = remaining_pile->card;
@@ -531,19 +503,17 @@ void drawCard(int numDraw){
 }
 
 void processCard(){
-    if (is_time_bomb && turns_left!=-1) {
-      turns_left--;
-    }
     if(current_card.name == REVERSE){
         direct = (direct+1)%2;
     }
     else if(current_card.name == PLUS){
-        if (is_stacking == 1) {
-            stacking += (current_card.color == BLACK) ? 4:2;
-        }
-        else if (is_time_bomb) {
-          turns_left = (turns_left==-1) ? 2:turns_left;
-          stacking += (current_card.color == BLACK) ? 4:2;
+        if (is_house == 1) {
+            if (current_card.color == BLACK) {
+              stacking +=4;
+            }
+            else{
+              stacking +=2;
+            }
         }
         else {
             if (current_card.color == BLACK) {
@@ -552,7 +522,7 @@ void processCard(){
                 }
                     //for player
                 else {
-                    current_card.color = choose_card_color();
+                   current_card.color = choose_card_color();
                 }
             }
             next_player();
@@ -565,7 +535,7 @@ void processCard(){
             else{
                 drawCard(2);
                 if(players[currentPosition].type==PLAYER){
-                   printCard();
+                    printCard();
                 }
             }
         }
@@ -579,7 +549,7 @@ void processCard(){
         }
             //for player
         else{
-            current_card.color = choose_card_color();
+           current_card.color = choose_card_color();
         }
     }
     next_player();
@@ -637,7 +607,7 @@ int play_card_user(int index) {
         next_player();
         return 0;
     }
-    else {
+   else {
         Deck *previous = NULL;
         Deck *current = players[currentPosition].cards;
         for (int i = 0; i < index; i++) {

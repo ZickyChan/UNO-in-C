@@ -18,7 +18,7 @@ int main() {
 
   create_cards(0);
   shuffle(108);
-  create_players(4);
+  create_players(2);
   /*current = head;
   while (current !=NULL) {
     print_card_name(current->card);
@@ -80,5 +80,5 @@ int main() {
     printf("Current card on the table is: ");
     print_card_name(current_card);
     printf("\n");
-  } 
+  }
 }

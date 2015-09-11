@@ -11,7 +11,7 @@
 #ifndef UNO_WINDOW_H
 #define UNO_WINDOW_H
 
-void gameScreen(int y, int x);
+void gameScreen(int y, int x, int ifContinue);
 void creditScreen(int y, int x);
 int askNumberPLayer(WINDOW *question);
 int typeGame();
@@ -23,5 +23,7 @@ void playGame(WINDOW *parent,int x);
 void comPlay(WINDOW *parent, int x);
 int userInput();
 int choose_card_color();
+void saveScreen();
+int winScore();
 
 #endif //UNO_WINDOW_H

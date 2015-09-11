@@ -5,7 +5,7 @@
 #ifndef UNO_FUNCTION_H
 #define UNO_FUNCTION_H
 
-#define LINESIZE 325
+#define LINESIZE 1000
 #define MAX_CARDS_NUM 108
 #define TURNS_TO_EXPLODE 3
 
