@@ -15,22 +15,31 @@ typedef enum color {RED, BLUE, GREEN, YELLOW, BLACK} Color;
 typedef enum card_name {ZERO, ONE, TWO, THREE, FOUR, FIVE,
     SIX, SEVEN, EIGHT, NINE, SKIP, REVERSE, PLUS, WILD} CardName;
 
+/**
+ * Card struct.
+ */
 typedef struct card {
-    Color color;
-    CardName name;
+    Color color;      /**< Color code for card */
+    CardName name;    /**< Name code for card */
 } Card;
 
+/**
+ * Deck struct.
+ */
 typedef struct deck {
-    Card card;
-    struct deck * next;
+    Card card;            /**< The current card this deck holds */
+    struct deck * next;   /**< Pointer to the next deck item */
 } Deck;
 
+/**
+ * Player struct.
+ */
 typedef struct player{
-    int length;
-    int score;
-    Deck *cards;
-    Type type;
-}Player;
+    int length;           /**< The length of the deck on the player's hand */
+    int score;            /**< Current score */
+    Deck *cards;          /**< Pointer to the player's deck on hand */
+    Type type;            /**< The current card this deck holds */
+}Player;  
 
 void swap (Card *a, Card *b);
 int shuffle(int length);
@@ -57,4 +66,5 @@ void save_game();
 void delay(unsigned int secs);
 void calc_cards();
 void continue_saved_game();
+int play_another_game();
 #endif //UNO_FUNCTION_H

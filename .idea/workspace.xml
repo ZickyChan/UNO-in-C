@@ -40,9 +40,11 @@
       <file leaf-file-name="function.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/function.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.2142856">
-              <caret line="15" column="11" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="11" />
-              <folding />
+            <state vertical-scroll-proportion="-11.857142">
+              <caret line="851" column="3" selection-start-line="851" selection-start-column="3" selection-end-line="851" selection-end-column="3" />
+              <folding>
+                <element signature="e#131#152#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -60,8 +62,8 @@
       <file leaf-file-name="window.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/window.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8210526">
-              <caret line="107" column="74" selection-start-line="107" selection-start-column="74" selection-end-line="107" selection-end-column="74" />
+            <state vertical-scroll-proportion="0.6210526">
+              <caret line="498" column="94" selection-start-line="498" selection-start-column="94" selection-end-line="498" selection-end-column="94" />
               <folding>
                 <element signature="e#36#55#0" expanded="true" />
               </folding>
@@ -92,7 +94,7 @@
       <file leaf-file-name="demo.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/demo.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.6071428">
+            <state vertical-scroll-proportion="0.0">
               <caret line="3" column="11" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="11" />
               <folding />
             </state>
@@ -103,7 +105,7 @@
         <entry file="file://$PROJECT_DIR$/src/uno.c">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="78" column="34" selection-start-line="78" selection-start-column="34" selection-end-line="78" selection-end-column="34" />
+              <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -124,8 +126,8 @@
       <file leaf-file-name="function.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/function.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.428572">
-              <caret line="59" column="9" selection-start-line="59" selection-start-column="7" selection-end-line="59" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="69" column="9" selection-start-line="69" selection-start-column="7" selection-end-line="69" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -151,10 +153,10 @@
         <option value="$PROJECT_DIR$/conf/xfce4/terminal/terminalrc" />
         <option value="$PROJECT_DIR$/src/function.h" />
         <option value="$PROJECT_DIR$/src/demo.c" />
-        <option value="$PROJECT_DIR$/src/window.c" />
         <option value="$PROJECT_DIR$/src/window.h" />
-        <option value="$PROJECT_DIR$/src/function.c" />
         <option value="$PROJECT_DIR$/src/uno.c" />
+        <option value="$PROJECT_DIR$/src/function.c" />
+        <option value="$PROJECT_DIR$/src/window.c" />
       </list>
     </option>
   </component>
@@ -222,92 +224,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uno" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$1$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uno" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="conf" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uno" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$1$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uno" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="conf" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xfce4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uno" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$1$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uno" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="conf" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xfce4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="terminal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uno" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$1$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uno" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uno" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$1$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uno" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="saves" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -418,11 +334,10 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31145433" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32303733" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32947233" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3101673" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31788933" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31788933" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24907847" sideWeight="0.20612814" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4015444" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -430,6 +345,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32947233" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -456,20 +372,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/window.c</url>
-          <line>204</line>
+          <line>213</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/window.c</url>
-          <line>432</line>
-          <option name="timeStamp" value="10" />
+          <url>file://$PROJECT_DIR$/src/function.c</url>
+          <line>784</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="12" />
+      <option name="time" value="14" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/function.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="59" column="9" selection-start-line="59" selection-start-column="7" selection-end-line="59" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/function.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -481,7 +405,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#131#152#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -511,7 +437,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#131#152#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -541,7 +469,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#131#152#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -571,7 +501,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#131#152#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -796,18 +728,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/demo.c">
+    <entry file="file://$PROJECT_DIR$/src/function.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.6071428">
-          <caret line="3" column="11" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="11" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="69" column="9" selection-start-line="69" selection-start-column="7" selection-end-line="69" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/function.h">
+    <entry file="file://$PROJECT_DIR$/src/demo.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.428572">
-          <caret line="59" column="9" selection-start-line="59" selection-start-column="7" selection-end-line="59" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="11" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="11" />
           <folding />
         </state>
       </provider>
@@ -815,7 +747,7 @@
     <entry file="file://$PROJECT_DIR$/src/uno.c">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="78" column="34" selection-start-line="78" selection-start-column="34" selection-end-line="78" selection-end-column="34" />
+          <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
@@ -824,16 +756,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/function.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.2142856">
-          <caret line="15" column="11" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="11" />
-          <folding />
+        <state vertical-scroll-proportion="-11.857142">
+          <caret line="851" column="3" selection-start-line="851" selection-start-column="3" selection-end-line="851" selection-end-column="3" />
+          <folding>
+            <element signature="e#131#152#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/window.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8210526">
-          <caret line="107" column="74" selection-start-line="107" selection-start-column="74" selection-end-line="107" selection-end-column="74" />
+        <state vertical-scroll-proportion="0.6210526">
+          <caret line="498" column="94" selection-start-line="498" selection-start-column="94" selection-end-line="498" selection-end-column="94" />
           <folding>
             <element signature="e#36#55#0" expanded="true" />
           </folding>

@@ -108,6 +108,7 @@ int typeGame(){
     mvwprintw(game, gameY/2 - 5,gameX/2 - 12 , "Choose your variation: ");
     mvwprintw(game, gameY/2 - 3, gameX/2 - 5, "Standard");
     mvwprintw(game, gameY/2 - 1, gameX/2 - 7, "Stacking UNO");
+    mvwprintw(game, gameY/2 + 1, gameX/2 - 4, "Time Bomb");
     mvwprintw(game, gameY-5,gameX-4, "Back");
     int c;
     int returnNum = -1;
@@ -126,6 +127,11 @@ int typeGame(){
                 }
                 else if ((event.y == gameY / 2 - 1) &&
                          (event.x >= gameX / 2 - 7) && (event.x < gameX/2 + 5)) {
+                    returnNum = 1;
+                    break;
+                }
+                else if ((event.y == gameY / 2 + 1) &&
+                         (event.x >= gameX / 2 - 4) && (event.x < gameX/2 + 5)) {
                     returnNum = 1;
                     break;
                 }
@@ -185,42 +191,63 @@ void gameScreen(int y, int x, int ifContinue){
     keypad(game, TRUE);
     gameX = x;
     gameY = y;
+    if(ifContinue == 0) {
+        int numPlay = askNumberPLayer(game);
+        int typePlay = typeGame();
+        int set_win_score = winScore();
 
-    int numPlay = askNumberPLayer(game);
-    int typePlay = typeGame();
-    int set_win_score = winScore();
+        if (numPlay != -1 && typePlay != -1 && set_win_score != -1) {
+            wclear(game);
+            wrefresh(game);
+            playedCard = subwin(game, 3, 5, y / 2 - 5, x / 2 - 2);
 
-    if(numPlay != -1 && typePlay != -1 && set_win_score != -1){
-        wclear(game);
-        wrefresh(game);
-        playedCard = subwin(game,3,5,y/2-5,x/2-2);
-
-        mvwprintw(game, y-5,x-4, "Back");
-        if(typePlay == 0) {
-            mvwprintw(game, 0, 0, "Standard Mode");
-        }
-        else{
-            mvwprintw(game, 0, 0, "Stacking UNO Mode");
-        }
-        if(ifContinue==0) {
-            startGame(numPlay, typePlay);
+            mvwprintw(game, y - 5, x - 4, "Back");
+            if (typePlay == 0) {
+                mvwprintw(game, 0, 1, "Standard Mode");
+            }
+            else if(typePlay == 1){
+                mvwprintw(game, 0, 1, "Stacking UNO Mode");
+            }
+            else{
+                mvwprintw(game, 0, 1, "Time Bomb Mode");
+            }
+            if (ifContinue == 0) {
+                startGame(numPlay, typePlay);
+            }
         }
         printCard();
 
-        WINDOW* drawCard  = subwin(game,3,5,y/2-5,startX);
-        wbkgd(drawCard,COLOR_PAIR(5));
-        mvwprintw(drawCard,1,1,"UNO");
+        WINDOW *drawCard = subwin(game, 3, 5, y / 2 - 5, startX);
+        wbkgd(drawCard, COLOR_PAIR(5));
+        mvwprintw(drawCard, 1, 1, "UNO");
         wrefresh(drawCard);
 
-        playGame(game,x);
+        playGame(game, x);
         wrefresh(game);
 
         wclear(drawCard);
         delwin(drawCard);
         wclear(game);
         delwin(game);
-
     }
+    else{
+        continue_saved_game();
+        printCard();
+
+        WINDOW *drawCard = subwin(game, 3, 5, y / 2 - 5, startX);
+        wbkgd(drawCard, COLOR_PAIR(5));
+        mvwprintw(drawCard, 1, 1, "UNO");
+        wrefresh(drawCard);
+
+        playGame(game, x);
+        wrefresh(game);
+
+        wclear(drawCard);
+        delwin(drawCard);
+        wclear(game);
+        delwin(game);
+    }
+
 }
 void creditScreen(int y, int x) {
     MEVENT event;
@@ -274,7 +301,7 @@ void startGame(int num, int type)
 void printCard(){
     Deck *current = players[0].cards;
     int positionX = gameX/2 - 34;
-    int positionY = gameY - 13;
+    int positionY = gameY - 15;
     startX = positionX;
     startY = positionY;
 
@@ -428,10 +455,10 @@ void comPlay (WINDOW *parent, int x){
     while (players[currentPosition].length > 0) {
         int index = currentPosition;
 
-        mvwprintw(parent, 1, gameX / 2 - 7, "             ");
+        mvwprintw(parent, 5, gameX / 2 - 7, "             ");
         if (players[currentPosition].type >= COMPUTER) {
             delay(4);
-
+            mvwprintw(game, 1, gameX / 2 - 11, "                     ", currentPosition);
             int comCanPlay = play_card_com();
             mvwprintw(game,2,gameX/2-8,"Player %d's turn!",currentPosition);
 
@@ -469,12 +496,39 @@ void comPlay (WINDOW *parent, int x){
             wrefresh(parent);
         }
     }
+    if(players[currentPosition].score < winning_score && players[currentPosition].length == 0){
+        wclear(game);
+        wrefresh(game);
+        mvwprintw(game,gameY/2-5,gameX/2 - 14,"Player %d win this round!!!",currentPosition);
+        mvwprintw(game,gameY/2 -3,gameX/2 - 15,"Another round?     Yes     No");
+        int c;
+        MEVENT event;
+        flushinp();
+        while(1){
+            c=wgetch(game);
+            if (KEY_MOUSE == c) {
+                /* Mouse event. */
+                if (OK == getmouse(&event)) {
+                    if(event.y == gameY/2-3 && event.x >= gameX/2 + 4 && event.x < gameX + 7){
+                        int canRun = play_another_game();
+                        playGame(parent,x);
+                        break;
+                    }
+                    else if(event.y == gameY/2-3 && event.x >= gameX/2 + 12 && event.x < gameX + 14){
+                        saveScreen();
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }
 int userInput(){
     MEVENT event;
     int c;
     int returnMode = 0;
     int count = 0;
+    flushinp();
     while(1){
         c=wgetch(game);
         if (KEY_MOUSE == c) {
@@ -495,7 +549,7 @@ int userInput(){
                                 break;
                             }
                             else {
-                                mvwprintw(game, 1, gameX / 2 - 7, "Invalid Card!");
+                                mvwprintw(game, 5, gameX / 2 - 7, "Invalid Card!");
                             }
                         }
                     }
@@ -516,7 +570,7 @@ int userInput(){
                                 break;
                             }
                             else {
-                                mvwprintw(game, 1, gameX / 2 - 7, "Invalid Card!");
+                                mvwprintw(game, 5, gameX / 2 - 7, "Invalid Card!");
                             }
                         }
                     }
@@ -535,7 +589,7 @@ int userInput(){
                                 break;
                             }
                             else {
-                                mvwprintw(game, 1, gameX / 2 - 7, "Invalid Card!");
+                                mvwprintw(game, 5, gameX / 2 - 7, "Invalid Card!");
                             }
                         }
                     }
@@ -565,7 +619,7 @@ int userInput(){
                         next_player();
                         returnMode = 1;
                         mvwprintw(game, 2, gameX / 2 - 8, "Player %d's turn!", currentPosition);
-                        mvwprintw(game, 1, gameX / 2 - 7, "             ");
+                        mvwprintw(game, 5, gameX / 2 - 7, "             ");
                         wrefresh(game);
                         break;
                     }
@@ -676,4 +730,7 @@ void saveScreen(){
     }
     wclear(playedCard);
     delwin(playedCard);
+}
+void errorScreen(){
+
 }

@@ -3,10 +3,11 @@
 #include <sys/ioctl.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <signal.h>
 #include "window.h"
-
+void do_resize(){}
 static void init_screen() {
-    //(void) signal(SIGINT, finish);      /* arrange interrupts to terminate */
+    //(void) signal(SIGWINCH, do_resize);      /* arrange interrupts to terminate */
     (void) initscr();      /* initialize the curses library */
     keypad(stdscr, TRUE);  /* enable keyboard mapping */
     (void) nonl();         /* tell curses not to do NL->CR/NL on output */
