@@ -59,7 +59,7 @@ int main()
                 }
                 else if(event.y == LINES/2-1 && (event.x >= COLS/2-4 && event.x <= COLS/2+4)){
                     char fname[1000];
-                    snprintf(fname, sizeof(fname), "saves/uno.save", getpid());
+                    snprintf(fname, sizeof(fname), "saves/uno.save");
                     if( access( fname, F_OK ) != -1 ) {
                         // file exists
                         gameScreen(LINES,COLS, 1);
