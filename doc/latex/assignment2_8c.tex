@@ -1,0 +1,91 @@
+\hypertarget{assignment2_8c}{\section{src/assignment2.c File Reference}
+\label{assignment2_8c}\index{src/assignment2.\+c@{src/assignment2.\+c}}
+}
+{\ttfamily \#include $<$ncurses.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{assignment2_8c_a241aeeb764887ae5e3de58b98f04b16d}{W\+I\+D\+T\+H}~30
+\item 
+\#define \hyperlink{assignment2_8c_aed89bd71aee8be823e8a20ec4e093c1e}{H\+E\+I\+G\+H\+T}~10
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{assignment2_8c_a810164b29b6ded682dff19d56ec8e4b0}{print\+\_\+menu} (W\+I\+N\+D\+O\+W $\ast$menu\+\_\+win, int highlight)
+\item 
+void \hyperlink{assignment2_8c_a9f74825ae52a48044ef1e426e39d9e87}{report\+\_\+choice} (int mouse\+\_\+x, int mouse\+\_\+y, int $\ast$p\+\_\+choice)
+\item 
+int \hyperlink{assignment2_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{assignment2_8c_a8f0744c55ee97ebf34757f8499a66139}{startx} = 0
+\item 
+int \hyperlink{assignment2_8c_a19e264821cbd530471c1cf985d7cd239}{starty} = 0
+\item 
+char $\ast$ \hyperlink{assignment2_8c_a186d0241c62502fb176689d6e6d56a46}{choices} \mbox{[}$\,$\mbox{]}
+\item 
+int \hyperlink{assignment2_8c_a478e7a7801776ac24cd223b7e08bee25}{n\+\_\+choices} = sizeof(\hyperlink{assignment2_8c_a186d0241c62502fb176689d6e6d56a46}{choices}) / sizeof(char $\ast$)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{assignment2_8c_aed89bd71aee8be823e8a20ec4e093c1e}{\index{assignment2.\+c@{assignment2.\+c}!H\+E\+I\+G\+H\+T@{H\+E\+I\+G\+H\+T}}
+\index{H\+E\+I\+G\+H\+T@{H\+E\+I\+G\+H\+T}!assignment2.\+c@{assignment2.\+c}}
+\subsubsection[{H\+E\+I\+G\+H\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+E\+I\+G\+H\+T~10}}\label{assignment2_8c_aed89bd71aee8be823e8a20ec4e093c1e}
+\hypertarget{assignment2_8c_a241aeeb764887ae5e3de58b98f04b16d}{\index{assignment2.\+c@{assignment2.\+c}!W\+I\+D\+T\+H@{W\+I\+D\+T\+H}}
+\index{W\+I\+D\+T\+H@{W\+I\+D\+T\+H}!assignment2.\+c@{assignment2.\+c}}
+\subsubsection[{W\+I\+D\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define W\+I\+D\+T\+H~30}}\label{assignment2_8c_a241aeeb764887ae5e3de58b98f04b16d}
+
+
+\subsection{Function Documentation}
+\hypertarget{assignment2_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{\index{assignment2.\+c@{assignment2.\+c}!main@{main}}
+\index{main@{main}!assignment2.\+c@{assignment2.\+c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{assignment2_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}
+\hypertarget{assignment2_8c_a810164b29b6ded682dff19d56ec8e4b0}{\index{assignment2.\+c@{assignment2.\+c}!print\+\_\+menu@{print\+\_\+menu}}
+\index{print\+\_\+menu@{print\+\_\+menu}!assignment2.\+c@{assignment2.\+c}}
+\subsubsection[{print\+\_\+menu}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+menu (
+\begin{DoxyParamCaption}
+\item[{W\+I\+N\+D\+O\+W $\ast$}]{menu\+\_\+win, }
+\item[{int}]{highlight}
+\end{DoxyParamCaption}
+)}}\label{assignment2_8c_a810164b29b6ded682dff19d56ec8e4b0}
+\hypertarget{assignment2_8c_a9f74825ae52a48044ef1e426e39d9e87}{\index{assignment2.\+c@{assignment2.\+c}!report\+\_\+choice@{report\+\_\+choice}}
+\index{report\+\_\+choice@{report\+\_\+choice}!assignment2.\+c@{assignment2.\+c}}
+\subsubsection[{report\+\_\+choice}]{\setlength{\rightskip}{0pt plus 5cm}void report\+\_\+choice (
+\begin{DoxyParamCaption}
+\item[{int}]{mouse\+\_\+x, }
+\item[{int}]{mouse\+\_\+y, }
+\item[{int $\ast$}]{p\+\_\+choice}
+\end{DoxyParamCaption}
+)}}\label{assignment2_8c_a9f74825ae52a48044ef1e426e39d9e87}
+
+
+\subsection{Variable Documentation}
+\hypertarget{assignment2_8c_a186d0241c62502fb176689d6e6d56a46}{\index{assignment2.\+c@{assignment2.\+c}!choices@{choices}}
+\index{choices@{choices}!assignment2.\+c@{assignment2.\+c}}
+\subsubsection[{choices}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ choices\mbox{[}$\,$\mbox{]}}}\label{assignment2_8c_a186d0241c62502fb176689d6e6d56a46}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{     \textcolor{stringliteral}{"Choice 1"},
+                       \textcolor{stringliteral}{"Choice 2"},
+                       \textcolor{stringliteral}{"Choice 3"},
+                       \textcolor{stringliteral}{"Choice 4"},
+                       \textcolor{stringliteral}{"Exit"},
+\}
+\end{DoxyCode}
+\hypertarget{assignment2_8c_a478e7a7801776ac24cd223b7e08bee25}{\index{assignment2.\+c@{assignment2.\+c}!n\+\_\+choices@{n\+\_\+choices}}
+\index{n\+\_\+choices@{n\+\_\+choices}!assignment2.\+c@{assignment2.\+c}}
+\subsubsection[{n\+\_\+choices}]{\setlength{\rightskip}{0pt plus 5cm}int n\+\_\+choices = sizeof({\bf choices}) / sizeof(char $\ast$)}}\label{assignment2_8c_a478e7a7801776ac24cd223b7e08bee25}
+\hypertarget{assignment2_8c_a8f0744c55ee97ebf34757f8499a66139}{\index{assignment2.\+c@{assignment2.\+c}!startx@{startx}}
+\index{startx@{startx}!assignment2.\+c@{assignment2.\+c}}
+\subsubsection[{startx}]{\setlength{\rightskip}{0pt plus 5cm}int startx = 0}}\label{assignment2_8c_a8f0744c55ee97ebf34757f8499a66139}
+\hypertarget{assignment2_8c_a19e264821cbd530471c1cf985d7cd239}{\index{assignment2.\+c@{assignment2.\+c}!starty@{starty}}
+\index{starty@{starty}!assignment2.\+c@{assignment2.\+c}}
+\subsubsection[{starty}]{\setlength{\rightskip}{0pt plus 5cm}int starty = 0}}\label{assignment2_8c_a19e264821cbd530471c1cf985d7cd239}

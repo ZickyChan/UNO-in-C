@@ -1,0 +1,148 @@
+\hypertarget{window_8h}{\section{src/window.h File Reference}
+\label{window_8h}\index{src/window.\+h@{src/window.\+h}}
+}
+{\ttfamily \#include $<$curses.\+h$>$}\\*
+{\ttfamily \#include $<$time.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}function.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{window_8h_a8fb1b0e82cf9cf820ee1a0f75d1d32a7}{game\+Screen} (int y, int x, int if\+Continue)
+\item 
+void \hyperlink{window_8h_af27985f7657caef4121f9bec1a1206a0}{credit\+Screen} (int y, int x)
+\item 
+int \hyperlink{window_8h_a39482ce8e268de460fda9f8110b3e1b7}{ask\+Number\+P\+Layer} (W\+I\+N\+D\+O\+W $\ast$question)
+\item 
+int \hyperlink{window_8h_a226e8ffa9713e3c1c3674c6fb6706222}{type\+Game} ()
+\item 
+void \hyperlink{window_8h_a2c1195e7cdfbb3f2e0af5de59728917c}{set\+Menu\+Screen} (W\+I\+N\+D\+O\+W $\ast$menu, int maxy, int maxx)
+\item 
+void \hyperlink{window_8h_a3d527bae22bed2472395d42596ece1ec}{start\+Game} (int num, int type)
+\item 
+void \hyperlink{window_8h_a6326dbfd49847be817361a6dd5132d2c}{print\+Card} ()
+\item 
+void \hyperlink{window_8h_aae46378c8d4c9f8cb25fdc0e99d81b4d}{set\+Played\+Card} ()
+\item 
+void \hyperlink{window_8h_aef2d045779a3547c803b2dfc194b7b5a}{play\+Game} (W\+I\+N\+D\+O\+W $\ast$parent, int x)
+\item 
+void \hyperlink{window_8h_a466a0866134118461e1e018a1833ff46}{com\+Play} (W\+I\+N\+D\+O\+W $\ast$parent, int x)
+\item 
+int \hyperlink{window_8h_aa97da210c9fc91edc1ae299f3566a6f8}{user\+Input} ()
+\item 
+int \hyperlink{window_8h_a60a5fa69347017e923a9ef77233d2725}{choose\+\_\+card\+\_\+color} ()
+\item 
+void \hyperlink{window_8h_a30851b59619769c7c7c7235ec02e6258}{save\+Screen} ()
+\item 
+int \hyperlink{window_8h_a3bcc6ebcea27deb2b53ff14cec538916}{win\+Score} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{window_8h_a39482ce8e268de460fda9f8110b3e1b7}{\index{window.\+h@{window.\+h}!ask\+Number\+P\+Layer@{ask\+Number\+P\+Layer}}
+\index{ask\+Number\+P\+Layer@{ask\+Number\+P\+Layer}!window.\+h@{window.\+h}}
+\subsubsection[{ask\+Number\+P\+Layer}]{\setlength{\rightskip}{0pt plus 5cm}int ask\+Number\+P\+Layer (
+\begin{DoxyParamCaption}
+\item[{W\+I\+N\+D\+O\+W $\ast$}]{question}
+\end{DoxyParamCaption}
+)}}\label{window_8h_a39482ce8e268de460fda9f8110b3e1b7}
+\hypertarget{window_8h_a60a5fa69347017e923a9ef77233d2725}{\index{window.\+h@{window.\+h}!choose\+\_\+card\+\_\+color@{choose\+\_\+card\+\_\+color}}
+\index{choose\+\_\+card\+\_\+color@{choose\+\_\+card\+\_\+color}!window.\+h@{window.\+h}}
+\subsubsection[{choose\+\_\+card\+\_\+color}]{\setlength{\rightskip}{0pt plus 5cm}int choose\+\_\+card\+\_\+color (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{window_8h_a60a5fa69347017e923a9ef77233d2725}
+\hypertarget{window_8h_a466a0866134118461e1e018a1833ff46}{\index{window.\+h@{window.\+h}!com\+Play@{com\+Play}}
+\index{com\+Play@{com\+Play}!window.\+h@{window.\+h}}
+\subsubsection[{com\+Play}]{\setlength{\rightskip}{0pt plus 5cm}void com\+Play (
+\begin{DoxyParamCaption}
+\item[{W\+I\+N\+D\+O\+W $\ast$}]{parent, }
+\item[{int}]{x}
+\end{DoxyParamCaption}
+)}}\label{window_8h_a466a0866134118461e1e018a1833ff46}
+\hypertarget{window_8h_af27985f7657caef4121f9bec1a1206a0}{\index{window.\+h@{window.\+h}!credit\+Screen@{credit\+Screen}}
+\index{credit\+Screen@{credit\+Screen}!window.\+h@{window.\+h}}
+\subsubsection[{credit\+Screen}]{\setlength{\rightskip}{0pt plus 5cm}void credit\+Screen (
+\begin{DoxyParamCaption}
+\item[{int}]{y, }
+\item[{int}]{x}
+\end{DoxyParamCaption}
+)}}\label{window_8h_af27985f7657caef4121f9bec1a1206a0}
+\hypertarget{window_8h_a8fb1b0e82cf9cf820ee1a0f75d1d32a7}{\index{window.\+h@{window.\+h}!game\+Screen@{game\+Screen}}
+\index{game\+Screen@{game\+Screen}!window.\+h@{window.\+h}}
+\subsubsection[{game\+Screen}]{\setlength{\rightskip}{0pt plus 5cm}void game\+Screen (
+\begin{DoxyParamCaption}
+\item[{int}]{y, }
+\item[{int}]{x, }
+\item[{int}]{if\+Continue}
+\end{DoxyParamCaption}
+)}}\label{window_8h_a8fb1b0e82cf9cf820ee1a0f75d1d32a7}
+\hypertarget{window_8h_aef2d045779a3547c803b2dfc194b7b5a}{\index{window.\+h@{window.\+h}!play\+Game@{play\+Game}}
+\index{play\+Game@{play\+Game}!window.\+h@{window.\+h}}
+\subsubsection[{play\+Game}]{\setlength{\rightskip}{0pt plus 5cm}void play\+Game (
+\begin{DoxyParamCaption}
+\item[{W\+I\+N\+D\+O\+W $\ast$}]{parent, }
+\item[{int}]{x}
+\end{DoxyParamCaption}
+)}}\label{window_8h_aef2d045779a3547c803b2dfc194b7b5a}
+\hypertarget{window_8h_a6326dbfd49847be817361a6dd5132d2c}{\index{window.\+h@{window.\+h}!print\+Card@{print\+Card}}
+\index{print\+Card@{print\+Card}!window.\+h@{window.\+h}}
+\subsubsection[{print\+Card}]{\setlength{\rightskip}{0pt plus 5cm}void print\+Card (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{window_8h_a6326dbfd49847be817361a6dd5132d2c}
+\hypertarget{window_8h_a30851b59619769c7c7c7235ec02e6258}{\index{window.\+h@{window.\+h}!save\+Screen@{save\+Screen}}
+\index{save\+Screen@{save\+Screen}!window.\+h@{window.\+h}}
+\subsubsection[{save\+Screen}]{\setlength{\rightskip}{0pt plus 5cm}void save\+Screen (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{window_8h_a30851b59619769c7c7c7235ec02e6258}
+\hypertarget{window_8h_a2c1195e7cdfbb3f2e0af5de59728917c}{\index{window.\+h@{window.\+h}!set\+Menu\+Screen@{set\+Menu\+Screen}}
+\index{set\+Menu\+Screen@{set\+Menu\+Screen}!window.\+h@{window.\+h}}
+\subsubsection[{set\+Menu\+Screen}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Menu\+Screen (
+\begin{DoxyParamCaption}
+\item[{W\+I\+N\+D\+O\+W $\ast$}]{menu, }
+\item[{int}]{maxy, }
+\item[{int}]{maxx}
+\end{DoxyParamCaption}
+)}}\label{window_8h_a2c1195e7cdfbb3f2e0af5de59728917c}
+\hypertarget{window_8h_aae46378c8d4c9f8cb25fdc0e99d81b4d}{\index{window.\+h@{window.\+h}!set\+Played\+Card@{set\+Played\+Card}}
+\index{set\+Played\+Card@{set\+Played\+Card}!window.\+h@{window.\+h}}
+\subsubsection[{set\+Played\+Card}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Played\+Card (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{window_8h_aae46378c8d4c9f8cb25fdc0e99d81b4d}
+\hypertarget{window_8h_a3d527bae22bed2472395d42596ece1ec}{\index{window.\+h@{window.\+h}!start\+Game@{start\+Game}}
+\index{start\+Game@{start\+Game}!window.\+h@{window.\+h}}
+\subsubsection[{start\+Game}]{\setlength{\rightskip}{0pt plus 5cm}void start\+Game (
+\begin{DoxyParamCaption}
+\item[{int}]{num, }
+\item[{int}]{type}
+\end{DoxyParamCaption}
+)}}\label{window_8h_a3d527bae22bed2472395d42596ece1ec}
+\hypertarget{window_8h_a226e8ffa9713e3c1c3674c6fb6706222}{\index{window.\+h@{window.\+h}!type\+Game@{type\+Game}}
+\index{type\+Game@{type\+Game}!window.\+h@{window.\+h}}
+\subsubsection[{type\+Game}]{\setlength{\rightskip}{0pt plus 5cm}int type\+Game (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{window_8h_a226e8ffa9713e3c1c3674c6fb6706222}
+\hypertarget{window_8h_aa97da210c9fc91edc1ae299f3566a6f8}{\index{window.\+h@{window.\+h}!user\+Input@{user\+Input}}
+\index{user\+Input@{user\+Input}!window.\+h@{window.\+h}}
+\subsubsection[{user\+Input}]{\setlength{\rightskip}{0pt plus 5cm}int user\+Input (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{window_8h_aa97da210c9fc91edc1ae299f3566a6f8}
+\hypertarget{window_8h_a3bcc6ebcea27deb2b53ff14cec538916}{\index{window.\+h@{window.\+h}!win\+Score@{win\+Score}}
+\index{win\+Score@{win\+Score}!window.\+h@{window.\+h}}
+\subsubsection[{win\+Score}]{\setlength{\rightskip}{0pt plus 5cm}int win\+Score (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{window_8h_a3bcc6ebcea27deb2b53ff14cec538916}
