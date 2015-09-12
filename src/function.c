@@ -431,21 +431,22 @@ int play_card_com() {
     if(players[currentPosition].length>0)
       processCard();
   }
-  else if (!is_played && variation == 1 && stacking != 0){
+  else if (is_played == 0 && variation == 1 && stacking != 0){
     drawCard(stacking);
     stacking = 0;
-    mvwprintw(game,4+(currentPosition-1),1,"P%d: %d cards", currentPosition,players[currentPosition].length);
+      mvwprintw(game, 4 + (currentPosition - 1), 1, "P%d: %d cards ", currentPosition, players[currentPosition].length);
+
     next_player();
   }
-  else if (!is_played && variation == 2 && turns_left == 0) {
+  else if (is_played == 0 && variation == 2 && turns_left == 0) {
     drawCard(stacking);
     stacking = 0;
     turns_left--;
-    mvwprintw(game,4+(currentPosition-1),1,"P%d: %d cards", currentPosition,players[currentPosition].length);
+    mvwprintw(game,4+(currentPosition-1),1,"P%d: %d cards ", currentPosition,players[currentPosition].length);
     next_player();
   } else {
     drawCard(1);
-    mvwprintw(game,4+(currentPosition-1),1,"P%d: %d cards", currentPosition,players[currentPosition].length);
+    mvwprintw(game,4+(currentPosition-1),1,"P%d: %d cards ", currentPosition,players[currentPosition].length);
     previous = NULL;
     current = players[currentPosition].cards;
     while (current != NULL) {
@@ -578,14 +579,14 @@ void processCard(){
             if (players[currentPosition].type == PLAYER && current_card.color == BLACK) {
                 current_card.color = choose_card_color();
             }
-            else if(current_card.color==BLACK){
-                current_card.color = pt_rand(2);
-            }
         }
 
         else if (variation == 2) {
           turns_left = (turns_left==-1) ? 2:turns_left;
           stacking += (current_card.color == BLACK) ? 4:2;
+            if (players[currentPosition].type == PLAYER && current_card.color == BLACK) {
+                current_card.color = choose_card_color();
+            }
         }
         else {
             if (current_card.color == BLACK) {
@@ -602,7 +603,7 @@ void processCard(){
                 if(players[currentPosition].type==PLAYER){
                    printCard();
                 } else{
-                    mvwprintw(game,4+(currentPosition-1),1,"Player %d: %d cards", currentPosition,players[currentPosition].length);
+                    mvwprintw(game,4+(currentPosition-1),1,"P%d: %d cards ", currentPosition,players[currentPosition].length);
                 }
             }
             else{
@@ -611,7 +612,7 @@ void processCard(){
                    printCard();
                 }
                 else{
-                    mvwprintw(game,4+(currentPosition-1),1,"Player %d: %d cards", currentPosition,players[currentPosition].length);
+                    mvwprintw(game,4+(currentPosition-1),1,"P%d: %d cards ", currentPosition,players[currentPosition].length);
                 }
             }
         }
@@ -690,13 +691,17 @@ int play_card_user(int index) {
             previous = current;
             current = current->next;
         }
-        if (is_playable(current->card) == 1) {
+        int canPlay = is_playable(current->card);
+        if (canPlay == 1) {
             current_card = current->card;
+            if(current_card.color == BLACK && current_card.name == PLUS){
+                canPlay++;
+            }
             discard(previous, current);
             if (players[currentPosition].length > 0)
                 processCard();
         }
-        return is_playable(current->card);
+        return canPlay;
     }
 
 }
@@ -760,7 +765,6 @@ void save_game() {
     current = current->next;
   }
   fprintf(f,"\n");
-  stop_game();
   fclose(f);
 }
 

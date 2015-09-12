@@ -5,9 +5,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include "window.h"
-void do_resize(){}
-static void init_screen() {
-    //(void) signal(SIGWINCH, do_resize);      /* arrange interrupts to terminate */
+void init_screen() {
     (void) initscr();      /* initialize the curses library */
     keypad(stdscr, TRUE);  /* enable keyboard mapping */
     (void) nonl();         /* tell curses not to do NL->CR/NL on output */
@@ -40,18 +38,12 @@ int main()
     init_screen();
     curs_set(0); /* Invisible cursor */
 
-    //keypad(stdscr, TRUE); /* Enable keypad mode */
     mousemask(ALL_MOUSE_EVENTS, NULL); /* Report all mouse events */
 
-    struct winsize w;
-    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 
-    int maxx, maxy;
-    //WINDOW *menu = newwin(w.ws_row,w.ws_col,0,0);
-    //wbkgd(menu,COLOR_PAIR(1));
     keypad(stdscr, TRUE);
-    getmaxyx(stdscr, maxy, maxx);
-    setMenuScreen(stdscr, maxy, maxx);
+
+    setMenuScreen(stdscr, LINES, COLS);
 
     while (1) {
         c = wgetch(stdscr);
@@ -59,39 +51,43 @@ int main()
         if (KEY_MOUSE == c) {
             /* Mouse event. */
             if (OK == getmouse(&event)) {
-                if(event.y == maxy/2-3 && (event.x >= maxx/2-4 && event.x <= maxx/2+4)){
-                    //mvwprintw(stdscr, 1, 1, "You clicked Menu");
-                    gameScreen(w.ws_row,w.ws_col,0);
+                if(event.y == LINES/2-3 && (event.x >= COLS/2-4 && event.x <= COLS/2+4)){
+                    gameScreen(LINES,COLS,0);
                     clear();
                     refresh();
-                    setMenuScreen(stdscr, maxy, maxx);
+                    setMenuScreen(stdscr, LINES, COLS);
                 }
-                else if(event.y == maxy/2-1 && (event.x >= maxx/2-4 && event.x <= maxx/2+4)){
+                else if(event.y == LINES/2-1 && (event.x >= COLS/2-4 && event.x <= COLS/2+4)){
                     char fname[1000];
                     snprintf(fname, sizeof(fname), "saves/uno.save", getpid());
                     if( access( fname, F_OK ) != -1 ) {
                         // file exists
-                        gameScreen(w.ws_row, w.ws_col, 1);
+                        gameScreen(LINES,COLS, 1);
                         clear();
                         refresh();
-                        setMenuScreen(stdscr, maxy, maxx);
+                        setMenuScreen(stdscr, LINES, COLS);
                     } else {
                         // file doesn't exist
-                        mvprintw(3,maxx/2-12,"There is no save game!");
+                        mvprintw(3,COLS/2-12,"There is no save game!");
                     }
                 }
-                else if(event.y == maxy/2+1 && (event.x >= maxx/2-3 && event.x <= maxx/2+3)){
-                    creditScreen(w.ws_row,w.ws_col);
+                else if(event.y == LINES/2+1 && (event.x >= COLS/2-3 && event.x <= COLS/2+3)){
+                    creditScreen(LINES,COLS);
                     clear();
                     refresh();
-                    setMenuScreen(stdscr, maxy, maxx);
+                    setMenuScreen(stdscr, LINES, COLS);
 
                 }
-                else if(event.y == maxy/2+3 && (event.x >= maxx/2-2 && event.x <= maxx/2+2)){
+                else if(event.y == LINES/2+3 && (event.x >= COLS/2-2 && event.x <= COLS/2+2)){
                     endwin();
                     return 0;
                 }
             }
+        }
+        else if(c==KEY_RESIZE){
+            wclear(stdscr);
+            setMenuScreen(stdscr,LINES,COLS);
+            wrefresh(stdscr);
         }
     }
 }

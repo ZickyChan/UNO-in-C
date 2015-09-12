@@ -200,4 +200,6 @@ void continue_saved_game();
  * Get all the cards back to the remaining pile
  */
 int play_another_game();
+
+void stop_game();
 #endif //UNO_FUNCTION_H
