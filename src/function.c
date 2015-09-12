@@ -16,17 +16,16 @@
 #include "window.h"
 
 // Global variables
-Player *players;          // array of players
-Card current_card;        // last played card on table
-Deck *remaining_pile;     // remaining cards to draw
-Deck *discard_pile;       // discarded cards
-int currentPosition;      // index of current player in turn
-int numPlayers;           // number of players
-int direct = CLOCKWISE;   // current direction of the game
-int stacking=0;           // current stacked draws
-int is_stacking=0;        // check if the game is in stacking mode or not
-int is_time_bomb = 0;     // check if the game is in time bomb mode or not
-int turns_left = -1;      // turns left until the 'bomb' explodes
+Player *players;          /**< array of players */
+Card current_card;        /**< last played card on table */
+Deck *remaining_pile;     /**< remaining cards to draw */
+Deck *discard_pile;       /**< discarded cards */
+int currentPosition;      /**< index of current player in turn */
+int numPlayers;           /**< number of players */
+int direct = CLOCKWISE;   /**< current direction of the game */
+int stacking=0;           /**< current stacked draws */
+int variation=0;               /**< game mode, 0 for standard, 1 for stacking, 2 for time bomb */
+int turns_left = -1;      /**< turns left until the 'bomb' explodes */
 
 extern int haveToDraw;    
 extern int winning_score; 
@@ -97,6 +96,18 @@ void sort(int length) {
   // Sort the array using quick sort algorithm
   quick_sort(array,length);
 
+  // If the player has to many cards, all the playable cards will be placed on 
+  // the top of that player's deck
+  if (length>=26) {
+    int index = 0;
+    for (int i=0; i<length; i++) {
+      if (is_playable(array[i])) {
+        swap(&array[i], &array[index]);
+        index++;
+      }
+    }
+  }
+  
   // Put cards back into player's deck
   current = players[currentPosition].cards;
   for (int i=0; i<length-1; i++) {
@@ -115,6 +126,9 @@ void sort(int length) {
 void quick_sort (Card a[], int length) {
   int left, right;
   Card pivot;
+
+  // If the current player is the user or type 1 AI computer
+  // Cards will be sorted by the color first and then by the name in ascending order
   if (players[currentPosition].type == PLAYER || players[currentPosition].type == COMPUTER1) {
     if (length > 1) {
       //Choose a pivot which is a random value, here I chose pivot is the mid element.
@@ -143,38 +157,33 @@ void quick_sort (Card a[], int length) {
       //Sort the array which contents the rest elements
       quick_sort(a + left, length - left);
     }
-  } else if (players[currentPosition].type == COMPUTER2){
+  } 
+  // If the current player is type 2 AI computer
+  // Cards will be sorted by name first and then by color in ascending order
+  else if (players[currentPosition].type == COMPUTER2){
+    // Apply the same principle but in reverse order
     if (length > 1) {
-      //Choose a pivot which is a random value, here I chose pivot is the mid element.
       pivot = a[length / 2];
-      //The left is the first index, the right is the last index
       for (left = 0, right = length - 1; ; left++, right--) {
-        //Find the element starting from the left index which is greater than pivot
         while ((a[left].name > pivot.name) || ((a[left].name == pivot.name)&&(a[left].color > pivot.color)))
-            //Keep increasing the left index if a[left] < pivot
             left++;
-
-        //Find the element starting from the right index which is smaller than pivot
         while ((pivot.name > a[right].name) || ((pivot.name == a[right].name) && (pivot.color > a[right].color) ))
-            //Keep decreasing the right index if a[right] > pivot
             right--;
-
-        //If left >= right then quit the loop
         if (left >= right)
             break;
-        //Swap a[left] and a[right]
         swap(&a[left], &a[right]);
       }
-
-      //Sort the array which contents the first element to the element at left index
       quick_sort(a, left);
-      //Sort the array which contents the rest elements
       quick_sort(a + left, length - left);
     }
   }
+  // If the current player is type 0 AI
+  // Cards will not be sorted
 }
 
 int create_cards(int rule){
+    // Create all the cards and put them in remaining_pile iteratively
+    // If it can't malloc at any point, we will free the deck and return 1
     Card card;
     card.color = RED;
     card.name = ZERO;
@@ -237,15 +246,14 @@ int create_cards(int rule){
             }
         }
     }
-    if (rule == 1) {
-      is_stacking = 1;
-    } else if (rule == 2) {
-      is_time_bomb = 1;
-    }
+    // Set the global game mode
+    variation = rule;
     return 0;
 }
 
 int create_players(int num){
+  // Allocate an array of players in the heap
+  // Number of players is from user input
   numPlayers = num;
   players = malloc(sizeof(Player) * numPlayers);
   if (players == NULL) {
@@ -255,6 +263,8 @@ int create_players(int num){
   for (int i = 0; i < numPlayers; i++) {
         players[i].length = 0;
         players[i].score = 0;
+        // The player at position 0 is always the user
+        // Other players AI type will be distributed by computing i modulus 3
         players[i].type= (i==0) ? PLAYER:(i%3+1);
         players[i].cards = NULL;
     }
@@ -262,6 +272,7 @@ int create_players(int num){
 }
 
 int set_up() {
+  // Let all players draw 1 card and put it into the bottom of remaining_pile
   discard_pile = NULL;
   Deck *last = remaining_pile;
   while (last->next != NULL) {
@@ -280,11 +291,16 @@ int set_up() {
     Deck *previous = remaining_pile;
     remaining_pile = remaining_pile->next;
     previous->next = NULL;
-    (players[i].cards)->next = NULL;
+    players[i].cards->next = NULL;
     last->next = previous;
     last = last->next;
   }
+
+  // Check if all players drew a number card, players who drew non-number card
+  // will have to draw again.
   last = check_if_allNum(last);
+
+  // Find the dealer
   Player dealer;
   int check_duplicate = 2;
   int *duplicate_position = malloc(sizeof(int) * numPlayers);
@@ -415,18 +431,21 @@ int play_card_com() {
     if(players[currentPosition].length>0)
       processCard();
   }
-  else if (!is_played && is_stacking && stacking != 0){
+  else if (!is_played && variation == 1 && stacking != 0){
     drawCard(stacking);
     stacking = 0;
+    mvwprintw(game,4+(currentPosition-1),1,"P%d: %d cards", currentPosition,players[currentPosition].length);
     next_player();
   }
-  else if (!is_played && is_time_bomb && turns_left == 0) {
+  else if (!is_played && variation == 2 && turns_left == 0) {
     drawCard(stacking);
     stacking = 0;
     turns_left--;
+    mvwprintw(game,4+(currentPosition-1),1,"P%d: %d cards", currentPosition,players[currentPosition].length);
     next_player();
   } else {
     drawCard(1);
+    mvwprintw(game,4+(currentPosition-1),1,"P%d: %d cards", currentPosition,players[currentPosition].length);
     previous = NULL;
     current = players[currentPosition].cards;
     while (current != NULL) {
@@ -440,7 +459,7 @@ int play_card_com() {
       }
     }
     if(is_played == 0){
-      if (is_time_bomb && turns_left!=-1)
+      if (variation == 2 && turns_left!=-1)
         turns_left--;
       next_player();
     }
@@ -454,20 +473,20 @@ int play_card_com() {
 }
 
 int is_playable(Card c) {
-  if (is_stacking && stacking != 0) {
-    if (c.name == PLUS) 
+  if (variation == 1 && stacking != 0) {
+    if (c.name == PLUS && (c.color == BLACK || c.color == current_card.color))
       return 1;
     else 
       return 0;
   }
-  else if (is_time_bomb && turns_left == 0) {
+  else if (variation == 2 && turns_left == 0) {
     if (c.name == REVERSE || c.name == SKIP) {
       turns_left++;
       return 1;
     } else
       return 0;
   }
-  else if (is_time_bomb && players[currentPosition].length == 1) {
+  else if (variation == 2 && players[currentPosition].length == 1) {
     if (c.color == current_card.color)
       return 1;
     else if (c.color == BLACK)
@@ -494,16 +513,16 @@ int is_playable(Card c) {
 void discard(Deck *previous, Deck *current){
     players[currentPosition].length--;
     if (players[currentPosition].length == 1) {
-        //printf("UNO\n");
         if(currentPosition != 0) {
-            mvwprintw(game, 5, gameX / 2 - 11, "Player %d says: UNO!!!", currentPosition);
+            mvwprintw(game, 1, gameX / 2 - 11, "Player %d says: UNO!!!", currentPosition);
         }
         else{
-            mvwprintw(game, 5, gameX / 2 - 11, "   You say: UNO!!!   ", currentPosition);
+            mvwprintw(game, 1, gameX / 2 - 11, "   You say: UNO!!!   ", currentPosition);
         }
     }
-    else if (players[currentPosition].length == 0)
-        printf("Player %d wins!\n", currentPosition);
+    else if (players[currentPosition].length == 0) {
+        update_score();
+      }
     if (previous == NULL) {
         players[currentPosition].cards = current->next;
         free(current);
@@ -547,17 +566,24 @@ void drawCard(int numDraw){
 }
 
 void processCard(){
-    if (is_time_bomb && turns_left!=-1) {
+    if (variation == 2 && turns_left!=-1) {
       turns_left--;
     }
     if(current_card.name == REVERSE){
         direct = (direct+1)%2;
     }
     else if(current_card.name == PLUS){
-        if (is_stacking == 1) {
+        if (variation == 1) {
             stacking += (current_card.color == BLACK) ? 4:2;
+            if (players[currentPosition].type == PLAYER && current_card.color == BLACK) {
+                current_card.color = choose_card_color();
+            }
+            else if(current_card.color==BLACK){
+                current_card.color = pt_rand(2);
+            }
         }
-        else if (is_time_bomb) {
+
+        else if (variation == 2) {
           turns_left = (turns_left==-1) ? 2:turns_left;
           stacking += (current_card.color == BLACK) ? 4:2;
         }
@@ -566,7 +592,6 @@ void processCard(){
                 if (players[currentPosition].type >= COMPUTER) {
                     current_card.color = pt_rand(2);
                 }
-                    //for player
                 else {
                     current_card.color = choose_card_color();
                 }
@@ -576,12 +601,17 @@ void processCard(){
                 drawCard(4);
                 if(players[currentPosition].type==PLAYER){
                    printCard();
+                } else{
+                    mvwprintw(game,4+(currentPosition-1),1,"Player %d: %d cards", currentPosition,players[currentPosition].length);
                 }
             }
             else{
                 drawCard(2);
                 if(players[currentPosition].type==PLAYER){
                    printCard();
+                }
+                else{
+                    mvwprintw(game,4+(currentPosition-1),1,"Player %d: %d cards", currentPosition,players[currentPosition].length);
                 }
             }
         }
@@ -693,9 +723,9 @@ void save_game() {
     perror("Client: \n");
     exit(1);
   }
-  if (is_stacking)
+  if (variation == 1)
     fprintf(f, "1\t%d\n", stacking);
-  else if (is_time_bomb)
+  else if (variation == 2)
     fprintf(f, "2\t%d\t%d\n", stacking, turns_left);
   else 
     fprintf(f, "0\n");
@@ -730,12 +760,7 @@ void save_game() {
     current = current->next;
   }
   fprintf(f,"\n");
-  free_deck(remaining_pile);
-  free_deck(discard_pile);
-  for (int i=0; i<numPlayers; i++) {
-    free_deck(players[i].cards);
-  }
-  free(players);
+  stop_game();
   fclose(f);
 }
 
@@ -751,12 +776,10 @@ void continue_saved_game() {
   char input[LINESIZE];
   FILE *f = fopen("saves/uno.save","r");
   fgets(input, LINESIZE, f);
-  int rule = atoi(strtok(input, "\t"));
-  if (rule == 1) {
-    is_stacking = 1;
+  variation = atoi(strtok(input, "\t"));
+  if (variation == 1) {
     stacking = atoi(strtok(NULL, "\t")); 
-  } else if (rule == 2) {
-    is_time_bomb = 1;
+  } else if (variation == 2) {
     stacking = atoi(strtok(NULL, "\t"));
     turns_left = atoi(strtok(NULL, "\t"));
   }
@@ -856,4 +879,13 @@ int play_another_game() {
   }
   current->next = discard_pile;
   return set_up();
+}
+
+void stop_game() {
+  free_deck(remaining_pile);
+  free_deck(discard_pile);
+  for (int i=0; i<numPlayers; i++) {
+    free_deck(players[i].cards);
+  }
+  free(players);
 }
