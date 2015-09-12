@@ -623,7 +623,7 @@ int userInput(){
                         wrefresh(game);
                         break;
                     }
-                }
+                }  //event.y == (gameY-5) && event.x >=gameX-4 && event.x <= gameX
                 if(event.y == (gameY-5) && event.x >=gameX-4 && event.x <= gameX){
                     saveScreen();
                     returnMode = 2;

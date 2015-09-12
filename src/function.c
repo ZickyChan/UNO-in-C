@@ -15,22 +15,22 @@
 #include <string.h>
 #include "window.h"
 
+// Global variables
+Player *players;          // array of players
+Card current_card;        // last played card on table
+Deck *remaining_pile;     // remaining cards to draw
+Deck *discard_pile;       // discarded cards
+int currentPosition;      // index of current player in turn
+int numPlayers;           // number of players
+int direct = CLOCKWISE;   // current direction of the game
+int stacking=0;           // current stacked draws
+int is_stacking=0;        // check if the game is in stacking mode or not
+int is_time_bomb = 0;     // check if the game is in time bomb mode or not
+int turns_left = -1;      // turns left until the 'bomb' explodes
 
-Player *players;
-Card current_card;
-Deck *remaining_pile;
-Deck *discard_pile;
-int currentPosition;
-int numPlayers;
-int direct = CLOCKWISE;
-int stacking=0;
-int is_stacking=0;
-int is_time_bomb = 0;
-int turns_left = -1;
-
-extern int haveToDraw;
-extern int winning_score;
-extern WINDOW *game;
+extern int haveToDraw;    
+extern int winning_score; 
+extern WINDOW *game;      
 extern int gameX;
 extern int gameY;
 
@@ -48,6 +48,7 @@ void swap(Card *a, Card *b) {
 
 int shuffle(int length) {
     srand(time(NULL));
+    // copy the cards in remaining pile into a Card array
     Deck *current = remaining_pile;
     Card *array = malloc(sizeof(Card)*length);
     if (array==NULL) {
@@ -58,17 +59,18 @@ int shuffle(int length) {
         array[i] = current->card;
         current = current->next;
     }
+    
+    // loop through the cards array and swap them randomly, using Fisher-Yates shuffle
     for (int i=0; i<length; i++) {
         // find a random index to swap with the current one
         int random_index = rand() % (length-i) +i;
         swap(&array[random_index],&array[i]);
     }
-    free_deck(remaining_pile);
-    remaining_pile = malloc(sizeof(Deck));
+
+    // Put cards in array back to the remaining pile in the shuffled order
     current = remaining_pile;
     for (int i=0; i<length-1; i++) {
         current->card = array[i];
-        current->next = malloc(sizeof(Deck));
         current = current->next;
     }
     //To make sure that there is no memory spaces assigned to the next deck of the last element of the whole cards
@@ -84,6 +86,7 @@ void print_card_name(Card a) {
 }
 
 void sort(int length) {
+  // Copy the cards in the current player's hand into array
   Deck *current = players[currentPosition].cards;
   Card *array = malloc(sizeof(Card)*length);
   for (int i=0; i<length; i++) {
@@ -91,7 +94,10 @@ void sort(int length) {
       current = current->next;
   }
 
+  // Sort the array using quick sort algorithm
   quick_sort(array,length);
+
+  // Put cards back into player's deck
   current = players[currentPosition].cards;
   for (int i=0; i<length-1; i++) {
       current->card = array[i];
@@ -681,7 +687,7 @@ void update_score() {
 
 void save_game() {
   char serv_name[1000];
-  snprintf(serv_name, sizeof(serv_name), "saves/uno.save", getpid());
+  snprintf(serv_name, sizeof(serv_name), "saves/uno.save");
   FILE *f = fopen(serv_name, "w");
   if (f==NULL) {
     perror("Client: \n");
@@ -705,7 +711,14 @@ void save_game() {
   }
 
   Deck *current = remaining_pile;
-
+  while (current != NULL) {
+    if (current->next != NULL) {
+        fprintf(f, "%d\t%d\t",current->card.color, current->card.name);
+    } else {
+        fprintf(f, "%d\t%d",current->card.color, current->card.name);
+    }
+    current = current->next;
+  }
   fprintf(f,"\n");
   current = discard_pile;
   while (current != NULL) {
@@ -731,32 +744,6 @@ void delay(unsigned int secs) {
   clock_t end_c = clock();
   while ((end_c-start_c)/1000000.0 < secs) {
     end_c = clock();
-  }
-}
-
-void calc_cards() {
-  int sum = 0;
-  if (players != NULL) {
-    for (int i=0; i<numPlayers; i++) {
-      Deck *current = players[i].cards;
-      while (current != NULL) {
-        sum++;
-        printf("%d\n", sum);
-        current = current->next;
-      }
-    }
-  }
-  Deck *current = discard_pile;
-  while (current != NULL) {
-    sum++;
-    printf("%d\n", sum);
-    current = current->next;
-  }
-  current = remaining_pile;
-  while (current != NULL) {
-    sum++;
-    printf("%d\n", sum);
-    current = current->next;
   }
 }
 
