@@ -20,9 +20,9 @@ All AI players will play the first card they found that is playable but base on 
 * Stacking UNO: players can stack the draw 2 and draw 4 cards until some player can’t play another draw card then that player has to draw all the stacked cards.
 * Timebomb UNO: When a player plays a draw card, the next player will not draw immediately but it will deploy a “bomb” and in 3 turns this “bomb” will explode and make the that player draws. In 3 turns when the “bomb” is counting down, players can play draw cards to add to the stack. When the “bomb” explodes, players can use skip or reverse to make “bomb” explodes at another location.
 
-# Extra function #:
+# Extra function: #
 * We use mouse event to get the user input instead of normal keyboard input.
 
-# ISSUES #:
+# ISSUES: #
 * The terminal is automatically set at full screen. However, the user can press F11 to exit full-screen mode. If the player resizes the terminal, the display will be broken. It doesn’t cause the program crash but the program can’t run correctly.
 * The display is set probably with our laptop size. It could be mixed up in other laptops. It could be solved by change the font size of the terminal to make sure that the terminal have 105 columns and 26 lines. (Go to conf/xfce4/terminal/terminalrc to change the font size)
