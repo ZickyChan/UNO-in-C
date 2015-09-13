@@ -504,8 +504,13 @@ int is_playable(Card c) {
   // Compare card c with current_card, based on which mode is playing to
   // determine wheter c is playable or not.
   if (variation == 1 && stacking != 0) {
-    if (c.name == PLUS && (c.color == BLACK || c.color == current_card.color))
-      return 1;
+    if (c.name == PLUS) {
+      // Player need to play draw card that match the new color if it was draw 4 card
+      if (discard_pile->card.color==BLACK && c.color != current_card.color)
+        return 0;
+      else
+        return 1;
+    }
     else 
       return 0;
   }
@@ -531,12 +536,16 @@ int is_playable(Card c) {
   else {
     // Standard rule
     if(c.color == current_card.color) {
+      // same color
       return 1;
     } else if (c.name == current_card.name) {
+      // same name
       return 1;
     } else if (c.color == BLACK) {
+      // wild or draw 4
       return 1;
     } else {
+      // can't play
       return 0;
     }
   }
