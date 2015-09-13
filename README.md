@@ -11,7 +11,7 @@ README file
 * We have a global variable current_card to store the last played card on table, check the chosen card color and name with that current_card color and name to determine whether it is playable or not.
 
 # AI players: #
-All AI players will play the first card they found that is playable but base on the sort function there will be 3 types of AI:
+* All AI players will play the first card they found that is playable but base on the sort function there will be 3 types of AI:
 * Type 1: non-sorted Deck meaning this AI type player will play cards at random.
 * Type 2: cards are sorted by color and name in ascending order meaning this AI type will keep the “function card” like skip, reverse, draw 2 for later and Black cards are used last for easy win.
 * Type 3: cards are sorted by name and color in descending order meaning this AI type will always play the “functional card” first.
