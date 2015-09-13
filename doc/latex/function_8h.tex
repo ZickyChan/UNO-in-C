@@ -16,8 +16,6 @@ struct \hyperlink{structplayer}{player}
 \#define \hyperlink{function_8h_a0095c1e0ae26941efea12c77f2232f2f}{L\+I\+N\+E\+S\+I\+Z\+E}~1000
 \item 
 \#define \hyperlink{function_8h_aecd9323450d6670847f4a80be717316a}{M\+A\+X\+\_\+\+C\+A\+R\+D\+S\+\_\+\+N\+U\+M}~108
-\item 
-\#define \hyperlink{function_8h_a4fab621716dc730ac24094cc7e0a7e59}{T\+U\+R\+N\+S\+\_\+\+T\+O\+\_\+\+E\+X\+P\+L\+O\+D\+E}~3
 \end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
@@ -127,9 +125,11 @@ void \hyperlink{function_8h_a080f5ef7e7f8a73a4e49e5ea040391c3}{save\+\_\+game} (
 \item 
 void \hyperlink{function_8h_a0f3679e7f3444edb0346e7f4d6297096}{delay} (unsigned int secs)
 \item 
-void \hyperlink{function_8h_aaa5de9c7e35fc8098f81be1909dfcc81}{continue\+\_\+saved\+\_\+game} ()
+int \hyperlink{function_8h_a24840fc0ca0bc5327664af9a3acbb992}{continue\+\_\+saved\+\_\+game} ()
 \item 
 int \hyperlink{function_8h_a5670527f075d9bccb2287237ee3c1f24}{play\+\_\+another\+\_\+game} ()
+\item 
+void \hyperlink{function_8h_a6d26d2971a3d43f4d8326997d74cb58f}{stop\+\_\+game} ()
 \end{DoxyCompactItemize}
 
 
@@ -137,12 +137,9 @@ int \hyperlink{function_8h_a5670527f075d9bccb2287237ee3c1f24}{play\+\_\+another\
 \hypertarget{function_8h_a0095c1e0ae26941efea12c77f2232f2f}{\index{function.\+h@{function.\+h}!L\+I\+N\+E\+S\+I\+Z\+E@{L\+I\+N\+E\+S\+I\+Z\+E}}
 \index{L\+I\+N\+E\+S\+I\+Z\+E@{L\+I\+N\+E\+S\+I\+Z\+E}!function.\+h@{function.\+h}}
 \subsubsection[{L\+I\+N\+E\+S\+I\+Z\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+I\+N\+E\+S\+I\+Z\+E~1000}}\label{function_8h_a0095c1e0ae26941efea12c77f2232f2f}
-\hypertarget{function_8h_aecd9323450d6670847f4a80be717316a}{\index{function.\+h@{function.\+h}!M\+A\+X\+\_\+\+C\+A\+R\+D\+S\+\_\+\+N\+U\+M@{M\+A\+X\+\_\+\+C\+A\+R\+D\+S\+\_\+\+N\+U\+M}}
+L\+I\+N\+E\+S\+I\+Z\+E to read input \hypertarget{function_8h_aecd9323450d6670847f4a80be717316a}{\index{function.\+h@{function.\+h}!M\+A\+X\+\_\+\+C\+A\+R\+D\+S\+\_\+\+N\+U\+M@{M\+A\+X\+\_\+\+C\+A\+R\+D\+S\+\_\+\+N\+U\+M}}
 \index{M\+A\+X\+\_\+\+C\+A\+R\+D\+S\+\_\+\+N\+U\+M@{M\+A\+X\+\_\+\+C\+A\+R\+D\+S\+\_\+\+N\+U\+M}!function.\+h@{function.\+h}}
 \subsubsection[{M\+A\+X\+\_\+\+C\+A\+R\+D\+S\+\_\+\+N\+U\+M}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+C\+A\+R\+D\+S\+\_\+\+N\+U\+M~108}}\label{function_8h_aecd9323450d6670847f4a80be717316a}
-\hypertarget{function_8h_a4fab621716dc730ac24094cc7e0a7e59}{\index{function.\+h@{function.\+h}!T\+U\+R\+N\+S\+\_\+\+T\+O\+\_\+\+E\+X\+P\+L\+O\+D\+E@{T\+U\+R\+N\+S\+\_\+\+T\+O\+\_\+\+E\+X\+P\+L\+O\+D\+E}}
-\index{T\+U\+R\+N\+S\+\_\+\+T\+O\+\_\+\+E\+X\+P\+L\+O\+D\+E@{T\+U\+R\+N\+S\+\_\+\+T\+O\+\_\+\+E\+X\+P\+L\+O\+D\+E}!function.\+h@{function.\+h}}
-\subsubsection[{T\+U\+R\+N\+S\+\_\+\+T\+O\+\_\+\+E\+X\+P\+L\+O\+D\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+U\+R\+N\+S\+\_\+\+T\+O\+\_\+\+E\+X\+P\+L\+O\+D\+E~3}}\label{function_8h_a4fab621716dc730ac24094cc7e0a7e59}
 
 
 \subsection{Typedef Documentation}
@@ -285,14 +282,17 @@ Check if all the players drew a number card, any player that drew other cards wi
 \begin{DoxyReturn}{Returns}
 pointer to the last card of the remaining\+\_\+pile 
 \end{DoxyReturn}
-\hypertarget{function_8h_aaa5de9c7e35fc8098f81be1909dfcc81}{\index{function.\+h@{function.\+h}!continue\+\_\+saved\+\_\+game@{continue\+\_\+saved\+\_\+game}}
+\hypertarget{function_8h_a24840fc0ca0bc5327664af9a3acbb992}{\index{function.\+h@{function.\+h}!continue\+\_\+saved\+\_\+game@{continue\+\_\+saved\+\_\+game}}
 \index{continue\+\_\+saved\+\_\+game@{continue\+\_\+saved\+\_\+game}!function.\+h@{function.\+h}}
-\subsubsection[{continue\+\_\+saved\+\_\+game}]{\setlength{\rightskip}{0pt plus 5cm}void continue\+\_\+saved\+\_\+game (
+\subsubsection[{continue\+\_\+saved\+\_\+game}]{\setlength{\rightskip}{0pt plus 5cm}int continue\+\_\+saved\+\_\+game (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}}\label{function_8h_aaa5de9c7e35fc8098f81be1909dfcc81}
-Read the save file, load all the players and cards. \hypertarget{function_8h_a096e81f957d8f0527ad5d8bc351fbf89}{\index{function.\+h@{function.\+h}!create\+\_\+cards@{create\+\_\+cards}}
+)}}\label{function_8h_a24840fc0ca0bc5327664af9a3acbb992}
+Read the save file, load all the players and cards. \begin{DoxyReturn}{Returns}
+check if successfully create game again 
+\end{DoxyReturn}
+\hypertarget{function_8h_a096e81f957d8f0527ad5d8bc351fbf89}{\index{function.\+h@{function.\+h}!create\+\_\+cards@{create\+\_\+cards}}
 \index{create\+\_\+cards@{create\+\_\+cards}!function.\+h@{function.\+h}}
 \subsubsection[{create\+\_\+cards}]{\setlength{\rightskip}{0pt plus 5cm}int create\+\_\+cards (
 \begin{DoxyParamCaption}
@@ -527,7 +527,14 @@ Sort the cards on the current player's hand Base on the type of the player and h
 {\em length} & the length of the player's deck of cards \\
 \hline
 \end{DoxyParams}
-\hypertarget{function_8h_ad8e4d186e3dd32be587bbd394f71a003}{\index{function.\+h@{function.\+h}!swap@{swap}}
+\hypertarget{function_8h_a6d26d2971a3d43f4d8326997d74cb58f}{\index{function.\+h@{function.\+h}!stop\+\_\+game@{stop\+\_\+game}}
+\index{stop\+\_\+game@{stop\+\_\+game}!function.\+h@{function.\+h}}
+\subsubsection[{stop\+\_\+game}]{\setlength{\rightskip}{0pt plus 5cm}void stop\+\_\+game (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{function_8h_a6d26d2971a3d43f4d8326997d74cb58f}
+Free all the allocated memory on the heap \hypertarget{function_8h_ad8e4d186e3dd32be587bbd394f71a003}{\index{function.\+h@{function.\+h}!swap@{swap}}
 \index{swap@{swap}!function.\+h@{function.\+h}}
 \subsubsection[{swap}]{\setlength{\rightskip}{0pt plus 5cm}void swap (
 \begin{DoxyParamCaption}

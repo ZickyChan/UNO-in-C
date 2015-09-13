@@ -38,6 +38,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -88,7 +89,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="#index_n"><span>n</span></a></li>
       <li><a href="#index_p"><span>p</span></a></li>
       <li><a href="#index_q"><span>q</span></a></li>
-      <li><a href="#index_r"><span>r</span></a></li>
       <li><a href="#index_s"><span>s</span></a></li>
       <li><a href="#index_t"><span>t</span></a></li>
       <li><a href="#index_u"><span>u</span></a></li>
@@ -101,7 +101,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -128,6 +128,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>calc_point()
 : <a class="el" href="conf_2function_8c.html#a2e80f696be9e4dd667cc92ba2f4dfb70">function.c</a>
 , <a class="el" href="function_8h.html#a2e80f696be9e4dd667cc92ba2f4dfb70">function.h</a>
+, <a class="el" href="src_2function_8c.html#a2e80f696be9e4dd667cc92ba2f4dfb70">function.c</a>
 </li>
 <li>check_if_allNum()
 : <a class="el" href="conf_2function_8c.html#aba087eebc3e25f54328c54b0b8c58dc8">function.c</a>
@@ -143,11 +144,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>continue_saved_game()
 : <a class="el" href="conf_2function_8c.html#aaa5de9c7e35fc8098f81be1909dfcc81">function.c</a>
-, <a class="el" href="function_8h.html#aaa5de9c7e35fc8098f81be1909dfcc81">function.h</a>
+, <a class="el" href="function_8h.html#a24840fc0ca0bc5327664af9a3acbb992">function.h</a>
 </li>
 <li>create_cards()
-: <a class="el" href="conf_2function_8c.html#a096e81f957d8f0527ad5d8bc351fbf89">function.c</a>
-, <a class="el" href="function_8h.html#a096e81f957d8f0527ad5d8bc351fbf89">function.h</a>
+: <a class="el" href="function_8h.html#a096e81f957d8f0527ad5d8bc351fbf89">function.h</a>
+, <a class="el" href="src_2function_8c.html#a096e81f957d8f0527ad5d8bc351fbf89">function.c</a>
 </li>
 <li>create_players()
 : <a class="el" href="conf_2function_8c.html#ab63b0dad36adcd3bf6787baa97e5603c">function.c</a>
@@ -169,17 +170,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="conf_2function_8c.html#a0f3679e7f3444edb0346e7f4d6297096">function.c</a>
 , <a class="el" href="function_8h.html#a0f3679e7f3444edb0346e7f4d6297096">function.h</a>
 </li>
-<li>discard()
-: <a class="el" href="src_2function_8c.html#a507eaf61684a742712d39cca00ae060f">function.c</a>
-, <a class="el" href="function_8h.html#a507eaf61684a742712d39cca00ae060f">function.h</a>
-, <a class="el" href="conf_2function_8c.html#a507eaf61684a742712d39cca00ae060f">function.c</a>
+<li>delWins()
+: <a class="el" href="window_8h.html#af3bb04dd49e55b74a2b19b95e610bcfc">window.h</a>
+, <a class="el" href="uno_8c.html#af3bb04dd49e55b74a2b19b95e610bcfc">uno.c</a>
 </li>
-<li>do_resize()
-: <a class="el" href="uno_8c.html#a2583a017c9c90ca54bfdb3d74171e64c">uno.c</a>
+<li>discard()
+: <a class="el" href="conf_2function_8c.html#a507eaf61684a742712d39cca00ae060f">function.c</a>
+, <a class="el" href="function_8h.html#a507eaf61684a742712d39cca00ae060f">function.h</a>
+, <a class="el" href="src_2function_8c.html#a507eaf61684a742712d39cca00ae060f">function.c</a>
 </li>
 <li>drawCard()
 : <a class="el" href="conf_2function_8c.html#a4f6ee9661b01a89c495f92db8a4f30ac">function.c</a>
 , <a class="el" href="function_8h.html#a4f6ee9661b01a89c495f92db8a4f30ac">function.h</a>
+, <a class="el" href="src_2function_8c.html#a4f6ee9661b01a89c495f92db8a4f30ac">function.c</a>
 </li>
 </ul>
 
@@ -187,6 +190,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h3><a class="anchor" id="index_e"></a>- e -</h3><ul>
 <li>errorScreen()
 : <a class="el" href="window_8c.html#aab5fbb07f75c7438c0271a785b84f003">window.c</a>
+, <a class="el" href="window_8h.html#aab5fbb07f75c7438c0271a785b84f003">window.h</a>
 </li>
 </ul>
 
@@ -195,6 +199,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>free_deck()
 : <a class="el" href="conf_2function_8c.html#abc357eb616ecf105c53bef019042f387">function.c</a>
 , <a class="el" href="function_8h.html#abc357eb616ecf105c53bef019042f387">function.h</a>
+, <a class="el" href="src_2function_8c.html#abc357eb616ecf105c53bef019042f387">function.c</a>
 </li>
 </ul>
 
@@ -208,17 +213,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
+<li>init_screen()
+: <a class="el" href="uno_8c.html#a071199c35946f8bc803698671cefce97">uno.c</a>
+</li>
 <li>is_playable()
-: <a class="el" href="conf_2function_8c.html#a309198104894a9e0cbf12a4bc3790a58">function.c</a>
-, <a class="el" href="function_8h.html#a309198104894a9e0cbf12a4bc3790a58">function.h</a>
+: <a class="el" href="function_8h.html#a309198104894a9e0cbf12a4bc3790a58">function.h</a>
+, <a class="el" href="src_2function_8c.html#a309198104894a9e0cbf12a4bc3790a58">function.c</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
 <li>main()
-: <a class="el" href="assignment2_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">assignment2.c</a>
-, <a class="el" href="demo_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">demo.c</a>
+: <a class="el" href="demo_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">demo.c</a>
 , <a class="el" href="uno_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">uno.c</a>
 </li>
 </ul>
@@ -228,6 +235,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>next_player()
 : <a class="el" href="conf_2function_8c.html#a49ef5b267247b1ba80805359b7557a7e">function.c</a>
 , <a class="el" href="function_8h.html#a49ef5b267247b1ba80805359b7557a7e">function.h</a>
+, <a class="el" href="src_2function_8c.html#a49ef5b267247b1ba80805359b7557a7e">function.c</a>
 </li>
 </ul>
 
@@ -238,36 +246,32 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="function_8h.html#a5670527f075d9bccb2287237ee3c1f24">function.h</a>
 </li>
 <li>play_card_com()
-: <a class="el" href="src_2function_8c.html#a7e60dbdd858791b5b06e94c9f5cb31f5">function.c</a>
+: <a class="el" href="conf_2function_8c.html#a7e60dbdd858791b5b06e94c9f5cb31f5">function.c</a>
 , <a class="el" href="function_8h.html#a7e60dbdd858791b5b06e94c9f5cb31f5">function.h</a>
-, <a class="el" href="conf_2function_8c.html#a7e60dbdd858791b5b06e94c9f5cb31f5">function.c</a>
 </li>
 <li>play_card_user()
-: <a class="el" href="function_8h.html#aff0085b2ef388e86b5c59cc6f011c66c">function.h</a>
-, <a class="el" href="conf_2function_8c.html#aff0085b2ef388e86b5c59cc6f011c66c">function.c</a>
+: <a class="el" href="conf_2function_8c.html#aff0085b2ef388e86b5c59cc6f011c66c">function.c</a>
+, <a class="el" href="function_8h.html#aff0085b2ef388e86b5c59cc6f011c66c">function.h</a>
 </li>
 <li>playGame()
-: <a class="el" href="window_8c.html#aef2d045779a3547c803b2dfc194b7b5a">window.c</a>
-, <a class="el" href="window_8h.html#aef2d045779a3547c803b2dfc194b7b5a">window.h</a>
+: <a class="el" href="window_8c.html#a2fe707f30f005bf458cab0b56541ec65">window.c</a>
+, <a class="el" href="window_8h.html#a2fe707f30f005bf458cab0b56541ec65">window.h</a>
 </li>
 <li>print_card_name()
 : <a class="el" href="conf_2function_8c.html#a4323e57dbb05c4f702692894dd8d49d4">function.c</a>
 , <a class="el" href="function_8h.html#a4323e57dbb05c4f702692894dd8d49d4">function.h</a>
 </li>
-<li>print_menu()
-: <a class="el" href="assignment2_8c.html#a810164b29b6ded682dff19d56ec8e4b0">assignment2.c</a>
-</li>
 <li>printCard()
-: <a class="el" href="window_8c.html#a6326dbfd49847be817361a6dd5132d2c">window.c</a>
-, <a class="el" href="window_8h.html#a6326dbfd49847be817361a6dd5132d2c">window.h</a>
+: <a class="el" href="window_8h.html#a6326dbfd49847be817361a6dd5132d2c">window.h</a>
+, <a class="el" href="window_8c.html#a6326dbfd49847be817361a6dd5132d2c">window.c</a>
 </li>
 <li>processCard()
-: <a class="el" href="conf_2function_8c.html#ac52302ff1d5083dee26d28bf6aa590a0">function.c</a>
-, <a class="el" href="function_8h.html#ac52302ff1d5083dee26d28bf6aa590a0">function.h</a>
+: <a class="el" href="function_8h.html#ac52302ff1d5083dee26d28bf6aa590a0">function.h</a>
+, <a class="el" href="src_2function_8c.html#ac52302ff1d5083dee26d28bf6aa590a0">function.c</a>
 </li>
 <li>pt_rand()
-: <a class="el" href="function_8h.html#a9edc5cd850038e0d9e836f438e4abc4b">function.h</a>
-, <a class="el" href="conf_2function_8c.html#a9edc5cd850038e0d9e836f438e4abc4b">function.c</a>
+: <a class="el" href="src_2function_8c.html#a9edc5cd850038e0d9e836f438e4abc4b">function.c</a>
+, <a class="el" href="function_8h.html#a9edc5cd850038e0d9e836f438e4abc4b">function.h</a>
 </li>
 </ul>
 
@@ -276,13 +280,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>quick_sort()
 : <a class="el" href="conf_2function_8c.html#a5ca2d589b2c8666c52946603fdf3e6fd">function.c</a>
 , <a class="el" href="function_8h.html#a5ca2d589b2c8666c52946603fdf3e6fd">function.h</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
-<li>report_choice()
-: <a class="el" href="assignment2_8c.html#a9f74825ae52a48044ef1e426e39d9e87">assignment2.c</a>
+, <a class="el" href="src_2function_8c.html#a5ca2d589b2c8666c52946603fdf3e6fd">function.c</a>
 </li>
 </ul>
 
@@ -297,8 +295,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="window_8h.html#a30851b59619769c7c7c7235ec02e6258">window.h</a>
 </li>
 <li>set_up()
-: <a class="el" href="function_8h.html#a0de60936a74f16fb1479b110f8131e87">function.h</a>
-, <a class="el" href="conf_2function_8c.html#a0de60936a74f16fb1479b110f8131e87">function.c</a>
+: <a class="el" href="conf_2function_8c.html#a0de60936a74f16fb1479b110f8131e87">function.c</a>
+, <a class="el" href="function_8h.html#a0de60936a74f16fb1479b110f8131e87">function.h</a>
+</li>
+<li>setGame()
+: <a class="el" href="window_8c.html#af465879238ce40396c5641a1437b388e">window.c</a>
+, <a class="el" href="window_8h.html#af465879238ce40396c5641a1437b388e">window.h</a>
 </li>
 <li>setMenuScreen()
 : <a class="el" href="window_8c.html#a2c1195e7cdfbb3f2e0af5de59728917c">window.c</a>
@@ -309,21 +311,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="window_8h.html#aae46378c8d4c9f8cb25fdc0e99d81b4d">window.h</a>
 </li>
 <li>shuffle()
-: <a class="el" href="function_8h.html#a22240bddafa4832f94327ff70d41444d">function.h</a>
-, <a class="el" href="conf_2function_8c.html#a22240bddafa4832f94327ff70d41444d">function.c</a>
+: <a class="el" href="conf_2function_8c.html#a22240bddafa4832f94327ff70d41444d">function.c</a>
+, <a class="el" href="function_8h.html#a22240bddafa4832f94327ff70d41444d">function.h</a>
 </li>
 <li>sort()
-: <a class="el" href="function_8h.html#ad8244bd854e60254973ea6704b36f712">function.h</a>
-, <a class="el" href="conf_2function_8c.html#ad8244bd854e60254973ea6704b36f712">function.c</a>
+: <a class="el" href="conf_2function_8c.html#ad8244bd854e60254973ea6704b36f712">function.c</a>
+, <a class="el" href="function_8h.html#ad8244bd854e60254973ea6704b36f712">function.h</a>
 </li>
 <li>startGame()
-: <a class="el" href="window_8c.html#a3d527bae22bed2472395d42596ece1ec">window.c</a>
-, <a class="el" href="window_8h.html#a3d527bae22bed2472395d42596ece1ec">window.h</a>
+: <a class="el" href="window_8c.html#a7f3bcf74897932a18ae9063a91b3a048">window.c</a>
+, <a class="el" href="window_8h.html#a7f3bcf74897932a18ae9063a91b3a048">window.h</a>
+</li>
+<li>stop_game()
+: <a class="el" href="src_2function_8c.html#a6d26d2971a3d43f4d8326997d74cb58f">function.c</a>
+, <a class="el" href="function_8h.html#a6d26d2971a3d43f4d8326997d74cb58f">function.h</a>
 </li>
 <li>swap()
-: <a class="el" href="src_2function_8c.html#ad8e4d186e3dd32be587bbd394f71a003">function.c</a>
+: <a class="el" href="conf_2function_8c.html#ad8e4d186e3dd32be587bbd394f71a003">function.c</a>
 , <a class="el" href="function_8h.html#ad8e4d186e3dd32be587bbd394f71a003">function.h</a>
-, <a class="el" href="conf_2function_8c.html#ad8e4d186e3dd32be587bbd394f71a003">function.c</a>
 </li>
 </ul>
 
@@ -357,7 +362,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 12 2015 10:50:25 for UNO_s3461484_s3494528 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 13 2015 23:32:05 for UNO_s3461484_s3494528 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['linesize',['LINESIZE',['../function_8h.html#a0095c1e0ae26941efea12c77f2232f2f',1,'function.h']]]
+  ['max_5fcards_5fnum',['MAX_CARDS_NUM',['../function_8h.html#aecd9323450d6670847f4a80be717316a',1,'function.h']]]
 ];

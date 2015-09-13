@@ -17,15 +17,19 @@ int \hyperlink{window_8h_a39482ce8e268de460fda9f8110b3e1b7}{ask\+Number\+P\+Laye
 \item 
 int \hyperlink{window_8h_a226e8ffa9713e3c1c3674c6fb6706222}{type\+Game} ()
 \item 
+int \hyperlink{window_8h_a3bcc6ebcea27deb2b53ff14cec538916}{win\+Score} ()
+\item 
 void \hyperlink{window_8h_a2c1195e7cdfbb3f2e0af5de59728917c}{set\+Menu\+Screen} (W\+I\+N\+D\+O\+W $\ast$menu, int maxy, int maxx)
 \item 
-void \hyperlink{window_8h_a3d527bae22bed2472395d42596ece1ec}{start\+Game} (int num, int type)
+int \hyperlink{window_8h_a7f3bcf74897932a18ae9063a91b3a048}{start\+Game} (int num, int type)
+\item 
+void \hyperlink{window_8h_af465879238ce40396c5641a1437b388e}{set\+Game} (int x, int y, int if\+Continue, int num\+P\+Lay, int type\+Play)
 \item 
 void \hyperlink{window_8h_a6326dbfd49847be817361a6dd5132d2c}{print\+Card} ()
 \item 
 void \hyperlink{window_8h_aae46378c8d4c9f8cb25fdc0e99d81b4d}{set\+Played\+Card} ()
 \item 
-void \hyperlink{window_8h_aef2d045779a3547c803b2dfc194b7b5a}{play\+Game} (W\+I\+N\+D\+O\+W $\ast$parent, int x)
+void \hyperlink{window_8h_a2fe707f30f005bf458cab0b56541ec65}{play\+Game} (W\+I\+N\+D\+O\+W $\ast$parent, int x, int if\+Continue)
 \item 
 void \hyperlink{window_8h_a466a0866134118461e1e018a1833ff46}{com\+Play} (W\+I\+N\+D\+O\+W $\ast$parent, int x)
 \item 
@@ -35,7 +39,9 @@ int \hyperlink{window_8h_a60a5fa69347017e923a9ef77233d2725}{choose\+\_\+card\+\_
 \item 
 void \hyperlink{window_8h_a30851b59619769c7c7c7235ec02e6258}{save\+Screen} ()
 \item 
-int \hyperlink{window_8h_a3bcc6ebcea27deb2b53ff14cec538916}{win\+Score} ()
+void \hyperlink{window_8h_af3bb04dd49e55b74a2b19b95e610bcfc}{del\+Wins} ()
+\item 
+void \hyperlink{window_8h_aab5fbb07f75c7438c0271a785b84f003}{error\+Screen} ()
 \end{DoxyCompactItemize}
 
 
@@ -70,6 +76,27 @@ int \hyperlink{window_8h_a3bcc6ebcea27deb2b53ff14cec538916}{win\+Score} ()
 \item[{int}]{x}
 \end{DoxyParamCaption}
 )}}\label{window_8h_af27985f7657caef4121f9bec1a1206a0}
+Create a window to display credit details 
+\begin{DoxyParams}{Parameters}
+{\em y} & is the height(lines) of the window which will be created \\
+\hline
+{\em x} & is the width(columns) of the window which will be created \\
+\hline
+\end{DoxyParams}
+\hypertarget{window_8h_af3bb04dd49e55b74a2b19b95e610bcfc}{\index{window.\+h@{window.\+h}!del\+Wins@{del\+Wins}}
+\index{del\+Wins@{del\+Wins}!window.\+h@{window.\+h}}
+\subsubsection[{del\+Wins}]{\setlength{\rightskip}{0pt plus 5cm}void del\+Wins (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{window_8h_af3bb04dd49e55b74a2b19b95e610bcfc}
+\hypertarget{window_8h_aab5fbb07f75c7438c0271a785b84f003}{\index{window.\+h@{window.\+h}!error\+Screen@{error\+Screen}}
+\index{error\+Screen@{error\+Screen}!window.\+h@{window.\+h}}
+\subsubsection[{error\+Screen}]{\setlength{\rightskip}{0pt plus 5cm}void error\+Screen (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{window_8h_aab5fbb07f75c7438c0271a785b84f003}
 \hypertarget{window_8h_a8fb1b0e82cf9cf820ee1a0f75d1d32a7}{\index{window.\+h@{window.\+h}!game\+Screen@{game\+Screen}}
 \index{game\+Screen@{game\+Screen}!window.\+h@{window.\+h}}
 \subsubsection[{game\+Screen}]{\setlength{\rightskip}{0pt plus 5cm}void game\+Screen (
@@ -79,14 +106,24 @@ int \hyperlink{window_8h_a3bcc6ebcea27deb2b53ff14cec538916}{win\+Score} ()
 \item[{int}]{if\+Continue}
 \end{DoxyParamCaption}
 )}}\label{window_8h_a8fb1b0e82cf9cf820ee1a0f75d1d32a7}
-\hypertarget{window_8h_aef2d045779a3547c803b2dfc194b7b5a}{\index{window.\+h@{window.\+h}!play\+Game@{play\+Game}}
+Set a new window when start or continue the game This function will also call other function to get the necessary input for users 
+\begin{DoxyParams}{Parameters}
+{\em y} & is the height(lines) of the window which will be created \\
+\hline
+{\em x} & is the width(columns) of the window which will be created \\
+\hline
+{\em if\+Continue} & is used to recognize that player want to continue or start a new game \\
+\hline
+\end{DoxyParams}
+\hypertarget{window_8h_a2fe707f30f005bf458cab0b56541ec65}{\index{window.\+h@{window.\+h}!play\+Game@{play\+Game}}
 \index{play\+Game@{play\+Game}!window.\+h@{window.\+h}}
 \subsubsection[{play\+Game}]{\setlength{\rightskip}{0pt plus 5cm}void play\+Game (
 \begin{DoxyParamCaption}
 \item[{W\+I\+N\+D\+O\+W $\ast$}]{parent, }
-\item[{int}]{x}
+\item[{int}]{x, }
+\item[{int}]{if\+Continue}
 \end{DoxyParamCaption}
-)}}\label{window_8h_aef2d045779a3547c803b2dfc194b7b5a}
+)}}\label{window_8h_a2fe707f30f005bf458cab0b56541ec65}
 \hypertarget{window_8h_a6326dbfd49847be817361a6dd5132d2c}{\index{window.\+h@{window.\+h}!print\+Card@{print\+Card}}
 \index{print\+Card@{print\+Card}!window.\+h@{window.\+h}}
 \subsubsection[{print\+Card}]{\setlength{\rightskip}{0pt plus 5cm}void print\+Card (
@@ -101,6 +138,17 @@ int \hyperlink{window_8h_a3bcc6ebcea27deb2b53ff14cec538916}{win\+Score} ()
 {}
 \end{DoxyParamCaption}
 )}}\label{window_8h_a30851b59619769c7c7c7235ec02e6258}
+\hypertarget{window_8h_af465879238ce40396c5641a1437b388e}{\index{window.\+h@{window.\+h}!set\+Game@{set\+Game}}
+\index{set\+Game@{set\+Game}!window.\+h@{window.\+h}}
+\subsubsection[{set\+Game}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Game (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{int}]{if\+Continue, }
+\item[{int}]{num\+P\+Lay, }
+\item[{int}]{type\+Play}
+\end{DoxyParamCaption}
+)}}\label{window_8h_af465879238ce40396c5641a1437b388e}
 \hypertarget{window_8h_a2c1195e7cdfbb3f2e0af5de59728917c}{\index{window.\+h@{window.\+h}!set\+Menu\+Screen@{set\+Menu\+Screen}}
 \index{set\+Menu\+Screen@{set\+Menu\+Screen}!window.\+h@{window.\+h}}
 \subsubsection[{set\+Menu\+Screen}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Menu\+Screen (
@@ -110,21 +158,21 @@ int \hyperlink{window_8h_a3bcc6ebcea27deb2b53ff14cec538916}{win\+Score} ()
 \item[{int}]{maxx}
 \end{DoxyParamCaption}
 )}}\label{window_8h_a2c1195e7cdfbb3f2e0af5de59728917c}
-\hypertarget{window_8h_aae46378c8d4c9f8cb25fdc0e99d81b4d}{\index{window.\+h@{window.\+h}!set\+Played\+Card@{set\+Played\+Card}}
+$<$ This integer represents if the user want a next round or not \hypertarget{window_8h_aae46378c8d4c9f8cb25fdc0e99d81b4d}{\index{window.\+h@{window.\+h}!set\+Played\+Card@{set\+Played\+Card}}
 \index{set\+Played\+Card@{set\+Played\+Card}!window.\+h@{window.\+h}}
 \subsubsection[{set\+Played\+Card}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Played\+Card (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}}\label{window_8h_aae46378c8d4c9f8cb25fdc0e99d81b4d}
-\hypertarget{window_8h_a3d527bae22bed2472395d42596ece1ec}{\index{window.\+h@{window.\+h}!start\+Game@{start\+Game}}
+\hypertarget{window_8h_a7f3bcf74897932a18ae9063a91b3a048}{\index{window.\+h@{window.\+h}!start\+Game@{start\+Game}}
 \index{start\+Game@{start\+Game}!window.\+h@{window.\+h}}
-\subsubsection[{start\+Game}]{\setlength{\rightskip}{0pt plus 5cm}void start\+Game (
+\subsubsection[{start\+Game}]{\setlength{\rightskip}{0pt plus 5cm}int start\+Game (
 \begin{DoxyParamCaption}
 \item[{int}]{num, }
 \item[{int}]{type}
 \end{DoxyParamCaption}
-)}}\label{window_8h_a3d527bae22bed2472395d42596ece1ec}
+)}}\label{window_8h_a7f3bcf74897932a18ae9063a91b3a048}
 \hypertarget{window_8h_a226e8ffa9713e3c1c3674c6fb6706222}{\index{window.\+h@{window.\+h}!type\+Game@{type\+Game}}
 \index{type\+Game@{type\+Game}!window.\+h@{window.\+h}}
 \subsubsection[{type\+Game}]{\setlength{\rightskip}{0pt plus 5cm}int type\+Game (

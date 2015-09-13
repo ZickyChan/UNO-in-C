@@ -5,9 +5,8 @@
 #ifndef UNO_FUNCTION_H
 #define UNO_FUNCTION_H
 
-#define LINESIZE 1000
+#define LINESIZE 1000         /**< LINESIZE to read input */
 #define MAX_CARDS_NUM 108
-#define TURNS_TO_EXPLODE 3
 
 typedef enum playerType{PLAYER, COMPUTER, COMPUTER1, COMPUTER2} Type;
 typedef enum direction {CLOCKWISE, COUNTER_CLOCKWISE} Direction;
@@ -193,13 +192,17 @@ void delay(unsigned int secs);
 
 /**
  * Read the save file, load all the players and cards.
+ * @return check if successfully create game again
  */
-void continue_saved_game();
+int continue_saved_game();
 
 /**
  * Get all the cards back to the remaining pile
  */
 int play_another_game();
 
+/**
+ * Free all the allocated memory on the heap
+ */
 void stop_game();
 #endif //UNO_FUNCTION_H
