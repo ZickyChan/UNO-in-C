@@ -1,4 +1,4 @@
-README file
+# README (please) file #
 
 # Data-structure: #
 * Card struct contain two enum Card color and Card name.
