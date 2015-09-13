@@ -353,11 +353,7 @@ int set_up() {
     }
     last = check_if_allNum(last);
   }
-
-  // Assign the index of the dealer to currentPosition
   currentPosition = duplicate_position[0]-1;
-
-  // Free drawn cards
   for (int i=0; i<numPlayers; i++) {
     free_deck(players[i].cards);
   }
@@ -375,7 +371,6 @@ Deck* check_if_allNum(Deck *last){
         allNum++;
       }
       else {
-        // If player drew a non-digit card, re-draw
         free(players[i].cards);
         players[i].cards = malloc(sizeof(Deck));
         players[i].cards->card = remaining_pile->card;
@@ -392,13 +387,9 @@ Deck* check_if_allNum(Deck *last){
 }
 
 void dealCard(){
-  // Deal cards to player
-  // User currentPosition and next_player() to deal cards to player in order, from
-  // the dealer
   for(int j = 0; j < 7;j++) {
     for (int i = 0; i < numPlayers; i++) {
       if (j==0) {
-        // Have to initialize the first card of players' deck
         players[currentPosition].length++;
         Deck temp = *remaining_pile;
         Deck *current = remaining_pile;
@@ -415,7 +406,6 @@ void dealCard(){
     }
   }
 
-  // Again sort players' deck in order by using currentPosition and next_player()
   for (int i = 0; i < numPlayers; i++){
     sort(players[currentPosition].length);
     next_player();
@@ -423,16 +413,11 @@ void dealCard(){
 }
 
 int play_card_com() {
-  // Let the computer plays card
-  // The computer will play the first card that is playable on the deck
-  Deck *current = players[currentPosition].cards; // The card that is being checked
-  Deck *previous = NULL;                          // The previous card of current
+  Deck *current = players[currentPosition].cards;
+  Deck *previous = NULL;
   int is_played = 0;
-
-  // Iterate through the deck and check the cards 1 by 1
   while (current != NULL) {
     if (is_playable(current->card) == 1) {
-      // If found a card that is playable, update the current card on the table and break
       current_card = current->card;
       is_played = 1;
       break;

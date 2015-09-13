@@ -5,6 +5,12 @@
 #include <unistd.h>
 #include <signal.h>
 #include "window.h"
+
+extern WINDOW *line1[13];
+extern WINDOW *line2[13];
+extern WINDOW *playedCard;
+extern WINDOW *game;
+
 void init_screen() {
     (void) initscr();      /* initialize the curses library */
     keypad(stdscr, TRUE);  /* enable keyboard mapping */
@@ -79,6 +85,7 @@ int main()
 
                 }
                 else if(event.y == LINES/2+3 && (event.x >= COLS/2-2 && event.x <= COLS/2+2)){
+                    delWins();
                     endwin();
                     return 0;
                 }
@@ -90,6 +97,19 @@ int main()
             wrefresh(stdscr);
         }
     }
+}
+void delWins(){
+    int length = 13;
+    for(int i=0; i<length;i++){
+        if (line1[i]!=NULL){
+            delwin(line1[i]);
+        }
+        if (line2[i]!=NULL){
+            delwin(line2[i]);
+        }
+    }
+    delwin(playedCard);
+    delwin(game);
 }
 
 

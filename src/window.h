@@ -27,11 +27,12 @@ void startGame(int num, int type);
 void setGame(int x, int y, int ifContinue, int numPLay, int typePlay);
 void printCard();
 void setPlayedCard();
-int playGame(WINDOW *parent,int x, int ifContinue);
-int comPlay(WINDOW *parent, int x);
+void playGame(WINDOW *parent,int x, int ifContinue);
+void comPlay(WINDOW *parent, int x);
 int userInput();
 int choose_card_color();
 void saveScreen();
 int winScore();
+void delWins();
 
 #endif //UNO_WINDOW_H
