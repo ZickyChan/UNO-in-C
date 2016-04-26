@@ -2,7 +2,8 @@
 ## What is the application?
 * This is an UNO game which is written in C.
 * I and my partner - Bui Minh Dung made this game for our second assignment in Programming in C course of RMIT Vietnam. We use N curses to help us to build the UI of the game. 
-* Because the N curses has some restricts, our game is not flexible with diferrent resolutions. You may have to change the game screen resolution (the instruction is below) to make the game screen fix to your screen.
+* Because the N curses has some restricts, our game is not flexible with diferrent resolutions. You may have to change the game screen resolution (the instruction is below) to make the game screen fix to your screen. 
+
 ## Data-structure: #
 * Card struct contain two enum Card color and Card name.
 * We use linked list to store the deck of cards. Deck will contain a card (value) and the pointer to the next Deck.
